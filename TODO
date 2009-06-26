@@ -1,10 +1,22 @@
 TODO
+========
 
-So much...
+1.Full Mac resolve list (mostly done Terry to add more)
 
-Add sqlite parsing and functionallity
-Add GUI or CLI interface
-Implement Device Class discovery
-Build a known mac list
-Build a phone vulnerability list
-Implement those two lists for discovery
+2.Be able to resolve from services found. 
+	(build a list of known words that relate search services for match if miss list)
+
+3.Implement Device Class discovery
+
+4.Build a phone vulnerability list (don't know if possible)
+
+5.Use a SQLite(in-memory) database to store records for lifetime of each run of app
+
+Table to have 
+key	Mac addr		Name		Manufc from mac	Deviceclass		Service class	Vulnerable to(eventually)
+ 1	00:00:00:00:00	random	Nokia 		Phone/Cellular	Telephony		bluesnaf
+ 2	01:00:12:21:23	SPH-990	Samsung		Phone/Cellular	Telephony		Bluebug
+ 3  	e2:34:12:35:32	ERD-200	Hon Li		Computer/Laptop	Networking		Unknown
+	
+
+6.Add GUI or CLI interface
