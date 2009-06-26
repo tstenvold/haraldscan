@@ -1,0 +1,19 @@
+README
+
+June 2009
+Terence Stenvold <tstenvold@gmail.com>
+
+Requirements
+============
+Python 2.6
+Pybluez
+
+Has only been tested under Linux although should work with OS's that support pybluez.
+
+Using
+======
+Run from the CLI just like anyother python script. 
+
+python <filename>.py
+
+No command line options or specfications have been created yet.
