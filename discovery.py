@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # discovery.py
 # June 2009
 # Terence Stenvold <tstenvold@gmail.com>
