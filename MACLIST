@@ -1,5 +1,29 @@
+00:00:0A,Sanyo
+00:1A:OE,Motorola Mobile Devices
+00:1A:6B,Microsoft
+00:1A:8A,Samsung
+00:1A:16,Nokia
+00:1A:75,Sony Ericsson Mobile Communications
+00:1A:92,Toshiba
+00:1B:33,Nokia
+00:1B:98,Samsung
+00:1B:AF,Nokia
+00:1B:EE,Nokia
+00:1C:43,Samsung
+00:1C:A4,Sony Ericsson
+00:1C:D6,Nokia
+00:1C:EE,Sharp
+00:1D:3B,Nokia
+00:1D:4F,Apple Computer
+00:1D:6E,Nokia
+00:1D:25,Samsung
+00:1D:28,Sony Ericsson
+00:1D:98,Nokia
+00:1D:E9,Nokia
+00:1D:F6,Samsung
+00:1D:FD,Nokia
 00:1C:B3,Apple
-00:25:00,Apple,Smart phone
+00:25:00,Apple
 00:19:15,TECOM Co. Ltd.
 00:02:5B,Cambridge Silicon Radio
 00:17:5C,SHARP CORPORATION
@@ -12,7 +36,7 @@
 00:0D:93,Apple Computer
 00:0A:95,Apple Computer Inc.
 00:19:1D,Nintendo Co.Ltd.
-00:11:24,Laptop,Apple Computer
+00:11:24,Apple Computer
 00:13:10,Cisco-Linksys LLC
 00:0A:3A,J-THREE INTERNATIONAL Holding Co. Ltd.
 00:14:A7,Nokia Danmark A/S
@@ -43,10 +67,10 @@
 00:05:4F,Audio-Video/Hands free,PRIVATE
 00:20:E0,Actiontec Electronics Inc.
 00:0E:6D,Murata Manufacturing Co. Ltd.
-00:1A:DC,Phone/Mobile,Nokia Danmark A/S
-00:07:A4,Audio-Video/Headset,GN Netcom Ltd.
-00:07:E0,Phone/Smart phone,Palm Inc.
-00:0E:07,Phone/Mobile,Sony Ericsson Mobile Communications AB
+00:1A:DC,Nokia Danmark A/S
+00:07:A4,GN Netcom Ltd.
+00:07:E0,Palm Inc.
+00:0E:07,Sony Ericsson Mobile Communications AB
 00:03:89,Plantronics
 00:17:F2,Apple Computer
 00:02:EE,Nokia Danmark A/S
