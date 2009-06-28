@@ -11,6 +11,7 @@ import bluetooth
 import deviceclass
 import sys
 import select
+import sqlite
 
 class harald_discoverer(bluetooth.DeviceDiscoverer):
 
@@ -18,8 +19,12 @@ class harald_discoverer(bluetooth.DeviceDiscoverer):
         self.done = False
 
     def device_discovered(self, addr, device_class, name):
-        #This is where discovered devices get put into database
-        print "  %s - %s - %s" % (addr, name, deviceclass.majordev_class(device_class))
+
+        devclass = deviceclass.majordev_class(device_class)
+
+        sqlite.insert_dev_table(addr, name, devclass, 'Fake Manufac')
+
+        print "  %s - %s - %s" % (addr, name, devclass)
 
     def inquiry_complete(self):
         self.done = True
@@ -29,7 +34,7 @@ class harald_discoverer(bluetooth.DeviceDiscoverer):
 def discover():
 
     d = harald_discoverer()
-    d.find_devices(lookup_names=True)
+    d.find_devices(flush_cache=False,lookup_names=True)
 
     readfiles = [ d, ]
 

@@ -58,7 +58,7 @@ def minordev_computer(device_class):
                         "Palm sized PC/PDA",
                         "Wearable Computer(Watch sized)" )
 
-    minor_class = (device_class & 0xff) >> 1
+    minor_class = (device_class & 0xff) >> 2
 
     return minor_classes[minor_class]
 
@@ -72,7 +72,7 @@ def minordev_phone(device_class):
                         "Wireless Modem or Voice Gateway",
                         "Common  ISDN Gateway")
 
-    minor_class = (device_class & 0xff) >> 1
+    minor_class = (device_class & 0xff) >> 2
 
     return minor_classes[minor_class]
 
@@ -90,7 +90,7 @@ def minordev_lan(device_class):
 
     #only uses bits 5,6,7
 
-    minor_class = (device_class & 0xff) >> 4
+    minor_class = (device_class & 0xff) >> 5
 
     return minor_classes[minor_class]
 
@@ -117,7 +117,7 @@ def minordev_audio(device_class):
                         "?Reserved?",
                         "Gaming/Toy Audio/Video")
 
-    minor_class = (device_class & 0xff) >> 1
+    minor_class = (device_class & 0xff) >> 2
 
     return minor_classes[minor_class]
 
@@ -138,9 +138,9 @@ def minordev_peripheral(device_class):
                         "|Card Reader")
 
     #uses bits 6,7
-    t_minor_class = (device_class & 0xff) >> 5
+    t_minor_class = (device_class & 0xff) >> 6
     #Uses bits 2,3,4,5
-    b_minor_class = ((device_class & 0xff) >> 1) & 0xf
+    b_minor_class = ((device_class & 0xff) >> 2) & 0xf
 
     return top_minor_classes[t_minor_class] + bottom_minor_classes[b_minor_class]
 
@@ -155,28 +155,28 @@ def minordev_image(device_class):
     image_class = ''
 
     #only uses bits 4,5,6,7 can be multiple items
-    for i in range (3,7):
+    for i in range (4,8):
         minor_class = (device_class >> i) & 0x1
         if minor_class != 0:
-            image_class += minor_classes[i - 3]
+            image_class += minor_classes[i - 4]
 
     return image_class
 
 #Services classes for bluetooth
 def service_class(service_class):
 
-    service_classes = ( (16, "positioning"),
-                        (17, "networking"),
-                        (18, "rendering"),
-                        (19, "capturing"),
-                        (20, "object transfer"),
-                        (21, "audio"),
-                        (22, "telephony"),
-                        (23, "information"))
+    service_classes = ( (16, "Positioning"),
+                        (17, "Networking"),
+                        (18, "Rendering"),
+                        (19, "Capturing"),
+                        (20, "Object transfer"),
+                        (21, "Audio"),
+                        (22, "Telephony"),
+                        (23, "Information"))
 
     serv_class = ''
     for bitpos, classname in service_classes:
-        if device_class & (1 << (bitpos-1)):
+        if service_class & (1 << (bitpos-1)):
             serv_class = classname
 
     return serv_class
