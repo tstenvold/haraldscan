@@ -161,12 +161,12 @@ def mac_resolve(macaddr):
         for row in cursor:
             return row[2]
     except sqlite.IntegrityError:
-        return 0;
-
-
-#print mac_resolve('00:1C:EE:00:34:23')
+        return 0
+    
+    return "Unknown"
 
 #For Testing to be removed
+#print mac_resolve('00:1C:EE:00:34:23')
 #status = refresh_maclist()
 #for k, v in status.iteritems():
     #print k, ': ', v

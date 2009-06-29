@@ -13,6 +13,7 @@ import sys
 import select
 import sqlite
 
+#This is really poorly done!
 class harald_discoverer(bluetooth.DeviceDiscoverer):
 
     def pre_inquiry(self):
@@ -21,8 +22,9 @@ class harald_discoverer(bluetooth.DeviceDiscoverer):
     def device_discovered(self, addr, device_class, name):
 
         devclass = deviceclass.majordev_class(device_class)
+        devman = sqlite.mac_resolve(addr)
 
-        sqlite.insert_dev_table(addr, name, devclass, 'Fake Manufac')
+        sqlite.insert_dev_table(addr, name, devclass, devman)
 
         print "  %s - %s - %s" % (addr, name, devclass)
 
@@ -31,6 +33,7 @@ class harald_discoverer(bluetooth.DeviceDiscoverer):
 
 
 #Discovers devices
+#This is also really poorly done!
 def discover():
 
     d = harald_discoverer()
