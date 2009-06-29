@@ -1,6 +1,8 @@
 #!/usr/bin/python
 #
-# Author: Carson Farrell
+# Authors:
+#   Carson Farrell
+#   Terence Stenvold <tstenvold@gmail.com>
 # Date: June 26th 2009
 #
 # Written to read the MACINFO file into an sqlite database called macinfo.db for
@@ -66,7 +68,7 @@ def insert_address_object(address, cursor):
         cursor.execute(query, (address.prefix, address.maker))
         return True;
     except sqlite.IntegrityError:
-	    return False;
+        return False;
 
 """Inserts a device into the device table in the existing database."""
 def insert_dev_table(addr, name, devclass, manufacturer):
@@ -76,7 +78,7 @@ def insert_dev_table(addr, name, devclass, manufacturer):
 
     query = 'INSERT INTO devices (macaddr, name, devclass, manufacturer) VALUES (?, ?, ?, ?)'
     try:
-	    cursor.execute(query, (addr, name, devclass, manufacturer))
+        cursor.execute(query, (addr, name, devclass, manufacturer))
     except sqlite.IntegrityError:
         pass
 
@@ -116,9 +118,9 @@ def setup_dev_table():
     with sqlite.connect('macinfo.db') as connection:
         cursor = connection.cursor()
 
-	# if the table cannot be created, it probably exists already.
-	# catching OperationalError is probably not the best solution,
-	# might want to look into a better way of doing this.
+    # if the table cannot be created, it probably exists already.
+    # catching OperationalError is probably not the best solution,
+    # might want to look into a better way of doing this.
     try:
         drop_dev_table()
     except sqlite.OperationalError:
@@ -138,12 +140,31 @@ def show_dev_table():
 
     query = 'SELECT * FROM devices'
     try:
-	    cursor.execute(query)
-	    connection.commit()
-	    return True;
+        cursor.execute(query)
+        connection.commit()
+        return True;
     except sqlite.IntegrityError:
         connection.commit()
         return False;
+
+#Resolves mac address to a manufacture
+#Take a full mac address and resolves it using it's first 3 bytes
+def mac_resolve(macaddr):
+
+    with sqlite.connect('macinfo.db') as connection:
+        cursor = connection.cursor()
+
+    query = 'SELECT * FROM macinfo WHERE prefix LIKE ?'
+    
+    try:
+        cursor.execute(query, [macaddr[0:8]])
+        for row in cursor:
+            return row[2]
+    except sqlite.IntegrityError:
+        return 0;
+
+
+#print mac_resolve('00:1C:EE:00:34:23')
 
 #For Testing to be removed
 #status = refresh_maclist()
