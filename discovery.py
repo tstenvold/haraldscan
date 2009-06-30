@@ -26,7 +26,7 @@ class harald_discoverer(bluetooth.DeviceDiscoverer):
 
         sqlite.insert_dev_table(addr, name, devclass, devman)
 
-        print "  %s - %s - %s" % (addr, name, devclass)
+        #print "  %s - %s - %s" % (addr, name, devclass)
 
     def inquiry_complete(self):
         self.done = True
@@ -34,20 +34,18 @@ class harald_discoverer(bluetooth.DeviceDiscoverer):
 
 #Discovers devices
 #This is also really poorly done!
+#Loop needs to be moved into the main loop
 def discover():
 
     d = harald_discoverer()
-    d.find_devices(flush_cache=False,lookup_names=True)
 
-    readfiles = [ d, ]
+    d.find_devices(lookup_names=True)
+    d.process_inquiry()
 
-    while True:
-        rfds = select.select( readfiles, [], [] )[0]
-
-        if d in rfds:
-            d.process_event()
-
-        if d.done: break
+    while d.done == False:
+        #NO-OP
+        if d.done == True:
+            break
 
 
 #Takes a mac address and tries to discover services available if in range.

@@ -133,6 +133,7 @@ def setup_dev_table():
 
     connection.commit()
 
+#returns the results of the query
 def show_dev_table():
 
     with sqlite.connect('macinfo.db') as connection:
@@ -141,11 +142,9 @@ def show_dev_table():
     query = 'SELECT * FROM devices'
     try:
         cursor.execute(query)
-        connection.commit()
-        return True;
+        return cursor;
     except sqlite.IntegrityError:
-        connection.commit()
-        return False;
+        cursor.close()
 
 #Resolves mac address to a manufacture
 #Take a full mac address and resolves it using it's first 3 bytes
@@ -155,14 +154,14 @@ def mac_resolve(macaddr):
         cursor = connection.cursor()
 
     query = 'SELECT * FROM macinfo WHERE prefix LIKE ?'
-    
+
     try:
         cursor.execute(query, [macaddr[0:8]])
         for row in cursor:
             return row[2]
     except sqlite.IntegrityError:
         return 0
-    
+
     return "Unknown"
 
 #For Testing to be removed
