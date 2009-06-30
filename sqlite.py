@@ -113,6 +113,8 @@ def refresh_maclist():
     connection.commit()
     return status
 
+"""Sets up the devices table by destroying it and creating
+a new table. Should be run at the begining of the program"""
 def setup_dev_table():
 
     with sqlite.connect('macinfo.db') as connection:
@@ -133,7 +135,7 @@ def setup_dev_table():
 
     connection.commit()
 
-#returns the results of the query
+"""Shows the devices table by returning the results of the query"""
 def show_dev_table():
 
     with sqlite.connect('macinfo.db') as connection:
@@ -146,8 +148,30 @@ def show_dev_table():
     except sqlite.IntegrityError:
         cursor.close()
 
-#Resolves mac address to a manufacture
-#Take a full mac address and resolves it using it's first 3 bytes
+"""Writes the devices table to a file specified
+by the parameter passed in"""
+def write_dev_table(filename):
+
+    with sqlite.connect('macinfo.db') as connection:
+        cursor = connection.cursor()
+
+    fp = open(filename, 'w')
+
+    query = 'SELECT * FROM devices'
+    try:
+        cursor.execute(query)
+        for row in cursor:
+            fp.write("Mac: " + row[1] + " Name: " + row[2] + " Class: " + row[3] + " Manuf: " + row[4] + "\n")
+
+        fp.write("\n")
+        fp.close()
+    except sqlite.IntegrityError:
+        fp.close()
+        cursor.close()
+
+
+"""Resolves mac address to a manufacture
+Take a full mac address and resolves it using it's first 3 bytes"""
 def mac_resolve(macaddr):
 
     with sqlite.connect('macinfo.db') as connection:

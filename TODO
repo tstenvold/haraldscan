@@ -1,16 +1,11 @@
 TODO
 ========
 
-1.Full Mac resolve list (mostly done Terry to add more)
+1.Full Mac resolve list (mostly done Terry to add more) *INPROGRESS
 
-2.Be able to resolve from services found. 
-	(build a list of known words that relate search services for match if miss list)
+3.Implement Device Class discovery *DONE
 
-3.Implement Device Class discovery
-
-4.Build a phone vulnerability list (don't know if possible)
-
-5.Use a SQLite(in-memory) database to store records for lifetime of each run of app
+4.Use a SQLite database to store records for lifetime of each run of app *DONE
 
 Table to have 
 key	Mac addr		Name		Manufc from mac	Deviceclass		Service class	Vulnerable to(eventually)
@@ -18,5 +13,13 @@ key	Mac addr		Name		Manufc from mac	Deviceclass		Service class	Vulnerable to(eve
  2	01:00:12:21:23	SPH-990	Samsung		Phone/Cellular	Telephony		Bluebug
  3  	e2:34:12:35:32	ERD-200	Hon Li		Computer/Laptop	Networking		Unknown
 	
+5.Print out devices table to a file *NOT TESTED
 
-6.Add GUI or CLI interface
+6.Clean up how the device discovery is done needs to be put in main loop.
+
+Add GUI or CLI interface
+
+Build a phone vulnerability list (don't know if possible)
+
+Be able to resolve from services found or save all relavent info to a file
+	(build a list of known words that relate search services for match if miss list)

@@ -7,13 +7,14 @@ Requirements
 ============
 Python 2.6
 Pybluez
+PySQLite
 
-Has only been tested under Linux although should work with OS's that support pybluez.
+Has only been tested under GNU/Linux
 
 Using
 ======
-Run from the CLI just like anyother python script. 
+Run from the CLI just like anyother python script.(For now this is how it'll work)
 
-python <filename>.py
+python main.py
 
-No command line options or specfications have been created yet.
+
