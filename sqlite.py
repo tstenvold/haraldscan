@@ -111,6 +111,7 @@ def refresh_maclist():
                 status[mac_address.prefix] = 'exists'
 
     connection.commit()
+    cursor.close()
     return status
 
 """Sets up the devices table by destroying it and creating
@@ -132,8 +133,9 @@ def setup_dev_table():
         create_dev_table(cursor)
     except sqlite.OperationalError:
         pass
-
+    
     connection.commit()
+    cursor.close()
 
 """Shows the devices table by returning the results of the query"""
 def show_dev_table():
@@ -167,7 +169,8 @@ def write_dev_table(filename):
         fp.close()
     except sqlite.IntegrityError:
         fp.close()
-        cursor.close()
+
+    cursor.close()
 
 
 """Resolves mac address to a manufacture
