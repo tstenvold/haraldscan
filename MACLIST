@@ -33,6 +33,31 @@
 00:1E:DC,Sony Ericsson Mobile Communications
 00:1E:E1,Samsung
 00:1E:E2,Samsung
+00:1F:01,Nokia Danmark A/S
+00:1F:5B,Apple Computer
+00:1F:5C,Nokia Danmark A/S
+00:1F:5D,Nokia Danmark A/S
+00:1F:6B,LG Electronics
+00:23:7A,Research in Motion
+00:1F:7E,Motorola Mobile Devices
+00:1F:CC,Samsung
+00:1F:CD,Samsung
+00:1F:DE,Nokia Danmark A/S
+00:1F:E3,LG Electronics
+00:1F:E4,Sony Ericsson Mobile Communications
+00:1F:F3,Apple Computer
+00:03:7A,Toshiba Computer
+00:05:41,Garmin
+00:05:C9,LG Electronics
+00:10:47,Land Rover
+00:10:49,Land Rover
+00:12:1C.JVC Stereo
+00:15:AF,Microsoft
+00:16:4E,Nokia Danmark A/S
+00:16:6C,Samsung
+00:16:CF,NEC
+00:17:83,?Sony Ericsson?|?Motorola?|?Nokia?
+00:17:C3,Ever KTFT
 00:1C:B3,Apple
 00:25:00,Apple
 00:19:15,TECOM Co. Ltd.
@@ -61,7 +86,7 @@
 00:15:B9,Samsung Electronics Co. Ltd.
 00:18:F8,Cisco-Linksys LLC
 00:12:62,Nokia Danmark A/S
-00:18:C5,Phone/Smart phone,Nokia Danmark A/S
+00:18:C5,Nokia Danmark A/S
 00:0F:B3,Actiontec Electronics Inc
 00:09:2D,HTC Corporation
 00:14:51,Apple Computer Inc.
@@ -118,7 +143,6 @@
 00:16:CE,Hon Hai Precision Ind. Co. Ltd.
 00:0F:3D,D-Link Corporation
 00:14:A4,Hon Hai Precision Ind. Co. Ltd.
-00:12:1C,PARROT S.A.
 00:08:2A,Powerwallz Network Security
 00:01:E3,Siemens AG
 00:07:CF,Anoto AB
