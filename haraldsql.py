@@ -114,7 +114,7 @@ def refresh_maclist(connection):
             x = line.split(',')
             mac_address = MacAddress(x[0].strip(), x[1].strip())
 
-            insert_address_object(mac_address, cursor):
+            insert_address_object(mac_address, cursor)
 
     connection.commit()
 

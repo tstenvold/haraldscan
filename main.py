@@ -22,19 +22,24 @@ def write_screen(cursor):
 
     move(0,0)
 
-    print "MAC\tName\tClass\tManufacturer"
+    print "HaraldScan"
+    print "-"*20
+    print "Press Q to Quit"
+    print "-"*20
+    print "MAC\t\t\tName\t\t\tClass\t\t\tManufacturer"
+    print ""
 
     if result != None:
         for row in result:
-            print row[1] + '\t' + row[2] + '\t' + row[3] + '\t' + row[4]
+            print row[1] + '\t' + row[2][:16] + '\t' + row[3][:16] + '\t\t' + row[4]
 
 #Open database and get connection and cursor
 connection = haraldsql.open_database()
 cursor = haraldsql.get_cursor(connection)
 
 
-#For Building Database
-#status = haraldsql.refresh_maclist(connection)
+#For Building Database should be a command line option
+haraldsql.refresh_maclist(connection)
 #for k, v in status.iteritems():
 #    print k, ': ', v
 
@@ -45,9 +50,8 @@ clear()
 #Discovers devices
 d = discovery.harald_discoverer()
 d.set_cursor(cursor)
-for i in range(1,5):
+for i in range(1,3):
     d.find_devices(lookup_names=True)
-    print i
 
     while True:
         d.process_event()
