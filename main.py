@@ -7,39 +7,53 @@
 
 import deviceclass
 import discovery
-import sqlite
+import haraldsql
 import time,sys,os
 
-def move(y,x):
-        sys.stdout.write("\x1b[%i;%iH"%(y+1,x+1))
+def move(new_x, new_y):
+    print '\033[' + str(new_x) + ';' + str(new_y) + 'H'
 
-def write_screen():
-    result = sqlite.show_dev_table()
+def clear():
+  print '\033[2J'
+
+def write_screen(cursor):
+
+    result = haraldsql.show_dev_table(cursor)
 
     move(0,0)
-    
-    for row in result:
-        print "Mac: " + row[1]
-        print "Name: " + row[2]
-        print "Class: " + row[3]
-        print "Manuf: " + row[4]
-        print ""
+
+    print "MAC\tName\tClass\tManufacturer"
+
+    if result != None:
+        for row in result:
+            print row[1] + '\t' + row[2] + '\t' + row[3] + '\t' + row[4]
+
+#Open database and get connection and cursor
+connection = haraldsql.open_database()
+cursor = haraldsql.get_cursor(connection)
+
+
+#For Building Database
+#status = haraldsql.refresh_maclist(connection)
+#for k, v in status.iteritems():
+#    print k, ': ', v
 
 #setup the device table for the lifetime of program
-sqlite.setup_dev_table()
+haraldsql.setup_dev_table(connection)
+clear()
 
 #Discovers devices
 d = discovery.harald_discoverer()
+d.set_cursor(cursor)
+for i in range(1,5):
+    d.find_devices(lookup_names=True)
+    print i
 
-d.find_devices(lookup_names=True)
-d.process_inquiry()
-
-while d.done == False:
-    time.sleep(1)
-    write_screen()
-    if d.done == True:
-        break
-
-#drops table at end of program life
-sqlite.drop_dev_table()
-
+    while True:
+        d.process_event()
+        write_screen(cursor)
+        if d.done == True:
+            break
+#drops table at end of program life and close the database
+haraldsql.drop_dev_table(cursor)
+haraldsql.close_database(connection)

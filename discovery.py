@@ -9,12 +9,14 @@
 
 import bluetooth
 import deviceclass
-import sys
-import select
-import sqlite
+import sys,select,os
+import haraldsql
 
 #This is really poorly done!
 class harald_discoverer(bluetooth.DeviceDiscoverer):
+
+    def set_cursor(self, cursor):
+        self.cursor = cursor
 
     def pre_inquiry(self):
         self.done = False
@@ -22,14 +24,14 @@ class harald_discoverer(bluetooth.DeviceDiscoverer):
     def device_discovered(self, addr, device_class, name):
 
         devclass = deviceclass.majordev_class(device_class)
-        devman = sqlite.mac_resolve(addr)
+        devman = haraldsql.mac_resolve(self.cursor, addr)
 
-        sqlite.insert_dev_table(addr, name, devclass, devman)
+        haraldsql.insert_dev_table(self.cursor, addr, name, devclass, devman)
 
-        #print "  %s - %s - %s" % (addr, name, devclass)
+        #print "  %s - %s - %s - %s" % (addr, name, devclass, devman)
 
     def inquiry_complete(self):
-        sqlite.write_dev_table('devices.txt')
+        haraldsql.write_dev_table(self.cursor,'devices.txt')
         self.done = True
 
 
