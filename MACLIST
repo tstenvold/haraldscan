@@ -51,7 +51,7 @@
 00:05:C9,LG Electronics
 00:10:47,Land Rover
 00:10:49,Land Rover
-00:12:1C.JVC Stereo
+00:12:1C,JVC Stereo
 00:15:AF,Microsoft
 00:16:4E,Nokia Danmark A/S
 00:16:6C,Samsung
@@ -93,7 +93,7 @@
 00:19:15,TECOM Co. Ltd.
 00:02:5B,Cambridge Silicon Radio
 00:17:5C,SHARP CORPORATION
-00:08:1B,USB Dongle,Windigo Systems
+00:08:1B,Windigo Systems
 00:18:A4,Motorola Mobile Devices
 00:1C:35,Nokia Danmark A/S
 00:E0:03,Nokia Wireless Business
@@ -130,7 +130,7 @@
 00:17:D5,Samsung Electronics Co. Ltd.
 00:19:1F,Microlink communications Inc.
 00:11:9F,Nokia Danmark A/S
-00:05:4F,Audio-Video/Hands free,PRIVATE
+00:05:4F,PRIVATE
 00:20:E0,Actiontec Electronics Inc.
 00:0E:6D,Murata Manufacturing Co. Ltd.
 00:1A:DC,Nokia Danmark A/S
