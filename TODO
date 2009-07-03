@@ -1,19 +1,13 @@
 TODO
 ========
 
-Add GUI or CLI interface
+Add GUI
 
 Add command line args (help, write to file, build db)
-
-Add Proper exit of application
 
 Add platform checking and handling (windows will be without Device classes :( )
 
 If MAC resolve fails do a service scan and write info to log file
-
-Maybe setup and emailer to mail the service scan from above |^|
+if connected to internet send to webpage that will log the event**
 
 Build a phone vulnerability list (don't know if possible)
-
-Be able to resolve from services found or save all relavent info to a file
-	(build a list of known words that relate search services for match if miss list)
