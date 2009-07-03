@@ -14,6 +14,7 @@ import time,sys,os
 
 def cleanup(connection, cursor):
     haraldcli.clear()
+    haraldcli.move(0,0)
     haraldsql.drop_dev_table(cursor)
     haraldsql.close_database(connection)
 
