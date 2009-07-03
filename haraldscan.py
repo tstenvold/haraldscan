@@ -10,14 +10,15 @@ import discovery
 import haraldsql
 import haraldcli
 import time,sys,os
-
+
+
 def cleanup(connection, cursor):
     haraldcli.clear()
     haraldsql.drop_dev_table(cursor)
     haraldsql.close_database(connection)
 
 
-buildb = False
+buildb = True
 write_file = False
 filename = ""
 

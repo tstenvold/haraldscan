@@ -20,8 +20,8 @@ so that validation business logic can be placed in later if needed."""
 class MacAddress:
 
     def __init__(self, prefix, maker):
-        self.prefix = prefix
-        self.maker = maker
+        self.prefix = unicode(prefix,"utf-8")
+        self.maker = unicode(maker,"utf-8")
 
 
 """Opens Database and returns the cursor to it"""
@@ -46,7 +46,7 @@ def create_base_table(cursor):
 
     create_statement  = 'CREATE TABLE macinfo ('
     create_statement += 'id INTEGER PRIMARY KEY AUTOINCREMENT,'
-    create_statement += 'prefix char(8) UNIQUE,'
+    create_statement += 'prefix char(10) UNIQUE,'
     create_statement += 'vendor varchar(100));'
 
     cursor.execute(create_statement)
@@ -57,7 +57,7 @@ def create_dev_table(cursor):
 
     create_dev  = 'CREATE TABLE devices ('
     create_dev += 'id INTEGER PRIMARY KEY AUTOINCREMENT,'
-    create_dev += 'macaddr char(17) UNIQUE,'
+    create_dev += 'macaddr char(18) UNIQUE,'
     create_dev += 'name varchar(100),'
     create_dev += 'devclass varchar(100),'
     create_dev += 'vendor varchar(100));'
@@ -114,7 +114,7 @@ def refresh_maclist(connection):
             x = line.split(',')
             mac_address = MacAddress(x[0].strip(), x[1].strip())
 
-            insert_address_object(mac_address, cursor)
+            insert_address_object(mac_address,cursor)
 
     connection.commit()
 

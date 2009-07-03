@@ -40,6 +40,7 @@ def restorecursor():
 def init_screen():
 
     clear()
+    move(0,0)
     print " "*35,
     print "Harald Scan"
     print "#"*80
