@@ -15,7 +15,7 @@
 
 from pysqlite2 import dbapi2 as sqlite
 
-"""Represents a mapping between prefix and manufacturer. Using this instead of a dictionary
+"""Represents a mapping between prefix and vendor. Using this instead of a dictionary
 so that validation business logic can be placed in later if needed."""
 class MacAddress:
 
@@ -47,7 +47,7 @@ def create_base_table(cursor):
     create_statement  = 'CREATE TABLE macinfo ('
     create_statement += 'id INTEGER PRIMARY KEY AUTOINCREMENT,'
     create_statement += 'prefix char(8) UNIQUE,'
-    create_statement += 'manufacturer varchar(100));'
+    create_statement += 'vendor varchar(100));'
 
     cursor.execute(create_statement)
 
@@ -60,7 +60,7 @@ def create_dev_table(cursor):
     create_dev += 'macaddr char(17) UNIQUE,'
     create_dev += 'name varchar(100),'
     create_dev += 'devclass varchar(100),'
-    create_dev += 'manufacturer varchar(100));'
+    create_dev += 'vendor varchar(100));'
 
     cursor.execute(create_dev)
 
@@ -76,7 +76,7 @@ def drop_dev_table(cursor):
 Returns true if the value is unique, false otherwise"""
 def insert_address_object(address, cursor):
 
-    query = 'INSERT INTO macinfo(prefix, manufacturer) VALUES (?, ?)'
+    query = 'INSERT INTO macinfo(prefix, vendor) VALUES (?, ?)'
 
     try:
         cursor.execute(query, (address.prefix, address.maker))
@@ -85,11 +85,11 @@ def insert_address_object(address, cursor):
         return False;
 
 """Inserts a device into the device table in the existing database."""
-def insert_dev_table(cursor, addr, name, devclass, manufacturer):
+def insert_dev_table(cursor, addr, name, devclass, vendor):
 
-    query = 'INSERT INTO devices (macaddr, name, devclass, manufacturer) VALUES (?, ?, ?, ?)'
+    query = 'INSERT INTO devices (macaddr, name, devclass, vendor) VALUES (?, ?, ?, ?)'
     try:
-        cursor.execute(query, (addr, name, devclass, manufacturer))
+        cursor.execute(query, (addr, name, devclass, vendor))
     except sqlite.IntegrityError:
         pass
 
@@ -158,13 +158,13 @@ def write_dev_table(cursor, filename):
     results = show_dev_table(cursor)
 
     for row in results:
-        fp.write("Mac: " + row[1] + " Name: " + row[2] + " Class: " + row[3] + " Manuf: " + row[4] + "\n")
+        fp.write("Mac: " + row[1] + " Name: " + row[2] + " Class: " + row[3] + " vendor: " + row[4] + "\n")
 
     fp.write("\n")
     fp.close()
 
 
-"""Resolves mac address to a manufacture
+"""Resolves mac address to a vendor
 Take a full mac address and resolves it using it's first 3 bytes"""
 def mac_resolve(cursor, macaddr):
 

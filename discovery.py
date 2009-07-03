@@ -28,10 +28,7 @@ class harald_discoverer(bluetooth.DeviceDiscoverer):
 
         haraldsql.insert_dev_table(self.cursor, addr, name, devclass, devman)
 
-        #print "  %s - %s - %s - %s" % (addr, name, devclass, devman)
-
     def inquiry_complete(self):
-        haraldsql.write_dev_table(self.cursor,'devices.txt')
         self.done = True
 
 
