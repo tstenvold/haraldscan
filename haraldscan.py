@@ -1,15 +1,18 @@
 #!/usr/bin/env python
-
-# main.py
+#
+# haraldscan.py
 # June 2009
 # Terence Stenvold <tstenvold@gmail.com>
 #
+#Main script for the running of harald scan
 
 import deviceclass
 import discovery
 import haraldsql
 import haraldcli
+import haraldusage
 import time,sys,os
+import getopt
 
 
 def cleanup(connection, cursor):
@@ -19,39 +22,57 @@ def cleanup(connection, cursor):
     haraldsql.close_database(connection)
 
 
-buildb = True
+try:
+    opts, args = getopt.getopt(sys.argv[1:], "hw:b", ["help", "write=", "build"])
+except getopt.GetoptError, err:
+    print str("Unknown Command use --help for information")
+    haraldusage.usage()
+
 write_file = False
-filename = ""
+filename = None
+buildb = False
+
+for o, a in opts:
+    if o in ("-b", "--build"):
+        buildb = True
+    elif o in ("-w", "--write"):
+        write_file = True
+        filename = a
+    elif o in ("-h", "--help"):
+        haraldusage.usage()
+    else:
+        assert False, "unhandled option"
+
 
 #Calls to initialize the program
 connection = haraldsql.open_database()
 cursor = haraldsql.get_cursor(connection)
 
 if buildb:
-    #For Building Database should be a command line option
     status = haraldsql.refresh_maclist(connection)
-    #for k, v in status.iteritems():
-    #    print k, ': ', v
+    for k, v in status.iteritems():
+       print k, ': ', v
+    print "Database Built"
 
+else:
+    haraldsql.setup_dev_table(connection)
+    d = discovery.harald_discoverer()
+    d.set_cursor(cursor)
+    haraldcli.init_screen()
 
-haraldsql.setup_dev_table(connection)
-d = discovery.harald_discoverer()
-d.set_cursor(cursor)
-haraldcli.init_screen()
-
-try:
-    while True:
-        d.find_devices(lookup_names=True)
-
+    try:
         while True:
-            d.process_event()
-            if d.done == True:
-                break
+            d.find_devices(lookup_names=True)
 
-        haraldcli.write_screen(cursor)
+            while True:
+                d.process_event()
+                if d.done == True:
+                    break
 
-        if write_file:
-            haraldsql.write_dev_table(self.cursor,'devices.txt')
+            haraldcli.write_screen(cursor)
 
-except (KeyboardInterrupt, SystemExit):
-    cleanup(connection, cursor)
+            if write_file:
+                haraldsql.write_dev_table(cursor, filename)
+
+    except (KeyboardInterrupt, SystemExit):
+        cleanup(connection, cursor)

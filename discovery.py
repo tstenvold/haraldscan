@@ -9,8 +9,9 @@
 
 import bluetooth
 import deviceclass
-import sys,select,os
+import sys,os
 import haraldsql
+import haraldusage
 
 #This is really poorly done!
 class harald_discoverer(bluetooth.DeviceDiscoverer):
@@ -42,3 +43,18 @@ def service_discover(mac_addr):
         return services
     else:
         return 0
+
+"""This Function will be used to send information to a php page but for now does nothing"""
+def unkown_mac(mac_addr):
+    results = service_discover(mac_addr)
+    name = lookup_name(address, timeout=8)
+
+    line = mac_addr
+    line += name
+
+    for svc in services:
+        line += svc["description"]
+        line += svc["provider"]
+
+if __name__ == '__main__':
+  haraldusage.usage()

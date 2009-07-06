@@ -1,7 +1,10 @@
 README
 
 June 2009
-Terence Stenvold <tstenvold@gmail.com>
+Author:
+    Terence Stenvold <tstenvold@gmail.com>
+Contributors:
+    Carson Farrell
 
 Requirements
 ============
@@ -9,12 +12,13 @@ Python 2.6
 Pybluez
 PySQLite
 
-Has only been tested under GNU/Linux
+Only Works under GNU/Linux or Unix Variants
 
-Using
+Usage
 ======
-Run from the CLI just like anyother python script.(For now this is how it'll work)
 
-python main.py
-
-
+usage: haraldscan.py [options]
+Options:
+	-b --build	: Builds the MAC address database. Ignores all other options and runs itself
+	-h --help	: Shows this menu
+	-w --write file	: Writes the devices found to this file. Overwrites any existing file

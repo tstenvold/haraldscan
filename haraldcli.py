@@ -7,6 +7,7 @@
 #Provides functions for the console interface
 
 import haraldsql
+import haraldusage
 import sys,os
 
 def move(new_x, new_y):
@@ -59,3 +60,6 @@ def write_screen(cursor):
     if result != None:
         for row in result:
             columns(row[1],row[2],row[3],row[4])
+
+if __name__ == '__main__':
+  haraldusage.usage()

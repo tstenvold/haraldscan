@@ -10,8 +10,7 @@
 # Minor class is determined by major class and bit positions 2-7
 #
 
-#TODO
-#Add error handling for all classes
+import haraldusage
 
 #Major classes for Bluetooth
 def majordev_class(device_class):
@@ -180,3 +179,6 @@ def service_class(service_class):
             serv_class = classname
 
     return serv_class
+
+if __name__ == '__main__':
+  haraldusage.usage()

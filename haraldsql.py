@@ -14,6 +14,7 @@
 # once it attempts to insert it into the database.
 
 from pysqlite2 import dbapi2 as sqlite
+import haraldusage
 
 """Represents a mapping between prefix and vendor. Using this instead of a dictionary
 so that validation business logic can be placed in later if needed."""
@@ -114,9 +115,14 @@ def refresh_maclist(connection):
             x = line.split(',')
             mac_address = MacAddress(x[0].strip(), x[1].strip())
 
-            insert_address_object(mac_address,cursor)
+            if insert_address_object(mac_address, cursor):
+                status[mac_address.prefix] = 'Added'
+            else:
+                status[mac_address.prefix] = 'Existed'
+
 
     connection.commit()
+    return status
 
 """Sets up the devices table by destroying it and creating
 a new table. Should be run at the begining of the program"""
@@ -158,7 +164,8 @@ def write_dev_table(cursor, filename):
     results = show_dev_table(cursor)
 
     for row in results:
-        fp.write("Mac: " + row[1] + " Name: " + row[2] + " Class: " + row[3] + " vendor: " + row[4] + "\n")
+        r = "Mac: %s\nName: %s\nClass: %s\nVendor: %s\n" % (row[1],row[2],row[3],row[4])
+        fp.write(r)
 
     fp.write("\n")
     fp.close()
@@ -175,6 +182,11 @@ def mac_resolve(cursor, macaddr):
         for row in cursor:
             return row[2]
     except sqlite.IntegrityError:
-        return 0
+        raise
 
+    #uncomment following line when php server with page to email is setup
+    #unkown_mac
     return "Unknown"
+
+if __name__ == '__main__':
+  haraldusage.usage()
