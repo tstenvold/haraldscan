@@ -39,7 +39,7 @@ for o, a in opts:
         write_file = True
         filename = a
     elif o in ("-h", "--help"):
-        haraldusage.usage()
+	    haraldusage.usage()
     else:
         assert False, "unhandled option"
 
