@@ -6,6 +6,14 @@ Author:
 Contributors:
     Carson Farrell
 
+Special Notes
+=============
+The goal of this project is really to gain as many MAC address mapped to device vendors as possible
+If you see an entry on the CLI stating that the Vendor is 'Unknown". Harald Scan probably created a file in the
+same directory with the first 6 characters from the MAC address with all the information it could gain from the
+device. This will allow me to add it to the MACLIST if I am able to determine who the Vendor is. Eventually this
+may be an automatic function but right now I request you email me these files @  tstenvold@gmail.com
+
 Requirements
 ============
 Python 2.6
@@ -13,6 +21,12 @@ Pybluez
 PySQLite
 
 Only Works under GNU/Linux or Unix Variants
+
+Installation
+============
+1. Unpack to a directory
+2. Run 'python haraldscan -b' to build database
+3. You are ready to go
 
 Usage
 ======

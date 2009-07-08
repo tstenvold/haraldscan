@@ -184,8 +184,6 @@ def mac_resolve(cursor, macaddr):
     except sqlite.IntegrityError:
         raise
 
-    #uncomment following line when php server with page to email is setup
-    #unkown_mac
     return "Unknown"
 
 if __name__ == '__main__':
