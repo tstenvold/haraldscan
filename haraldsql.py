@@ -31,7 +31,7 @@ def open_database():
         return sqlite.connect('macinfo.db')
 
 def get_cursor(connection):
-
+        
         return connection.cursor()
 
 """Closes the Database duh"""
@@ -45,7 +45,7 @@ def close_database(connection):
 If any error occurs, no operation is performed"""
 def create_base_table(cursor):
 
-    create_statement  = 'CREATE TABLE macinfo ('
+    create_statement  = 'CREATE TABLE IF NOT EXISTS macinfo('
     create_statement += 'id INTEGER PRIMARY KEY AUTOINCREMENT,'
     create_statement += 'prefix char(10) UNIQUE,'
     create_statement += 'vendor varchar(100));'
@@ -56,7 +56,7 @@ def create_base_table(cursor):
 If any error occurs, no operation is performed"""
 def create_dev_table(cursor):
 
-    create_dev  = 'CREATE TABLE devices ('
+    create_dev  = 'CREATE TABLE IF NOT EXISTS  devices('
     create_dev += 'id INTEGER PRIMARY KEY AUTOINCREMENT,'
     create_dev += 'macaddr char(18) UNIQUE,'
     create_dev += 'name varchar(100),'
@@ -71,7 +71,7 @@ after the program closes
 If any error occurs, no operation is performed"""
 def drop_dev_table(cursor):
 
-    cursor.execute('DROP TABLE devices;')
+    cursor.execute('DROP TABLE IF EXISTS devices;')
 
 """Inserts the values represented by a MacAddress object into an existing database.
 Returns true if the value is unique, false otherwise"""
@@ -92,7 +92,7 @@ def insert_dev_table(cursor, addr, name, devclass, vendor):
     try:
         cursor.execute(query, (addr, name, devclass, vendor))
     except sqlite.IntegrityError:
-        pass
+        raise
 
 """Attempts to enter the data found in the MACLIST file into the database specified
 on the first line on the function."""
@@ -100,13 +100,10 @@ def refresh_maclist(connection):
 
     cursor = connection.cursor()
 
-    # if the table cannot be created, it probably exists already.
-    # catching OperationalError is probably not the best solution,
-    # might want to look into a better way of doing this.
     try:
         create_base_table(cursor)
     except sqlite.OperationalError:
-        pass
+        raise
 
     status = {}
 
@@ -130,18 +127,11 @@ def setup_dev_table(connection):
 
     cursor = connection.cursor()
 
-    # if the table cannot be created, it probably exists already.
-    # catching OperationalError is probably not the best solution,
-    # might want to look into a better way of doing this.
     try:
         drop_dev_table(cursor)
-    except sqlite.OperationalError:
-        pass
-
-    try:
         create_dev_table(cursor)
     except sqlite.OperationalError:
-        pass
+        raise
 
     connection.commit()
 
@@ -181,9 +171,9 @@ def mac_resolve(cursor, macaddr):
         cursor.execute(query, [macaddr[0:8]])
         for row in cursor:
             return row[2]
+    #Not Handled Properly To Be Fixed
     except sqlite.IntegrityError:
-        raise
-
+        pass       
     return "Unknown"
 
 if __name__ == '__main__':

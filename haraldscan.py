@@ -13,6 +13,7 @@ import haraldcli
 import haraldusage
 import time,sys,os
 import getopt
+import bluetooth
 
 
 def cleanup(connection, cursor):
@@ -56,12 +57,14 @@ if buildb:
 
 else:
     haraldsql.setup_dev_table(connection)
+    
     d = discovery.harald_discoverer()
     d.set_cursor(cursor)
     haraldcli.init_screen()
 
     try:
         while True:
+           
             d.find_devices(lookup_names=True)
 
             while True:
@@ -74,5 +77,9 @@ else:
             if write_file:
                 haraldsql.write_dev_table(cursor, filename)
 
+    except bluetooth.btcommon.BluetoothError:
+        cleanup(connection, cursor)
+        haraldusage.bluetooth_error()
+        
     except (KeyboardInterrupt, SystemExit):
         cleanup(connection, cursor)
