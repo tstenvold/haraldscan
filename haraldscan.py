@@ -6,6 +6,7 @@
 #
 #Main script for the running of harald scan
 
+from pysqlite2 import dbapi2 as sqlite
 import deviceclass
 import discovery
 import haraldsql
@@ -44,8 +45,9 @@ for o, a in opts:
     else:
         assert False, "unhandled option"
 
+if haraldsql.chk_database() == False and buildb == False:
+    haraldusage.no_db()
 
-#Calls to initialize the program
 connection = haraldsql.open_database()
 cursor = haraldsql.get_cursor(connection)
 
@@ -55,16 +57,16 @@ if buildb:
        print k, ': ', v
     print "Database Built"
 
-else:
+elif buildb == False:
     haraldsql.setup_dev_table(connection)
-    
+
     d = discovery.harald_discoverer()
     d.set_cursor(cursor)
     haraldcli.init_screen()
 
     try:
         while True:
-           
+
             d.find_devices(lookup_names=True)
 
             while True:
@@ -80,6 +82,10 @@ else:
     except bluetooth.btcommon.BluetoothError:
         cleanup(connection, cursor)
         haraldusage.bluetooth_error()
-        
+
+    except (sqlite.OperationalError, sqlite.IntegrityError):
+        cleanup(connection, cursor)
+        haraldusage.no_db()
+
     except (KeyboardInterrupt, SystemExit):
         cleanup(connection, cursor)

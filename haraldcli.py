@@ -23,9 +23,9 @@ def columns(col1, col2, col3, col4):
     print col1[:17],
     right(20-len(col1[:17]))
     print col2[:15],
-    right(15-len(col2[:15]))
+    right(15-len(col2[:14]))
     print col3[:20],
-    right(20-len(col3[:20]))
+    right(20-len(col3[:19]))
     print col4[:25]
 
 def clear():

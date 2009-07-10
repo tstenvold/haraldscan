@@ -14,6 +14,7 @@
 # once it attempts to insert it into the database.
 
 from pysqlite2 import dbapi2 as sqlite
+import os
 import haraldusage
 
 """Represents a mapping between prefix and vendor. Using this instead of a dictionary
@@ -25,13 +26,21 @@ class MacAddress:
         self.maker = unicode(maker,"utf-8")
 
 
+"""Checks if Database exists"""
+def chk_database():
+
+        if os.path.isfile("macinfo.db") == True:
+            return True
+        else:
+            return False
+
 """Opens Database and returns the cursor to it"""
 def open_database():
 
-        return sqlite.connect('macinfo.db')
+            return sqlite.connect('macinfo.db')
 
 def get_cursor(connection):
-        
+
         return connection.cursor()
 
 """Closes the Database duh"""
@@ -83,6 +92,7 @@ def insert_address_object(address, cursor):
         cursor.execute(query, (address.prefix, address.maker))
         return True;
     except sqlite.IntegrityError:
+        pass
         return False;
 
 """Inserts a device into the device table in the existing database."""
@@ -92,7 +102,7 @@ def insert_dev_table(cursor, addr, name, devclass, vendor):
     try:
         cursor.execute(query, (addr, name, devclass, vendor))
     except sqlite.IntegrityError:
-        raise
+        pass
 
 """Attempts to enter the data found in the MACLIST file into the database specified
 on the first line on the function."""
@@ -171,9 +181,8 @@ def mac_resolve(cursor, macaddr):
         cursor.execute(query, [macaddr[0:8]])
         for row in cursor:
             return row[2]
-    #Not Handled Properly To Be Fixed
     except sqlite.IntegrityError:
-        pass       
+        raise
     return "Unknown"
 
 if __name__ == '__main__':
