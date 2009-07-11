@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#
+# -*- coding: utf-8 -*-
 # haraldscan.py
 # June 2009
 # Terence Stenvold <tstenvold@gmail.com>
@@ -11,81 +11,78 @@ import deviceclass
 import discovery
 import haraldsql
 import haraldcli
+import haraldargs
 import haraldusage
 import time,sys,os
-import getopt
 import bluetooth
 
+class Harald_main:
 
-def cleanup(connection, cursor):
-    haraldcli.clear()
-    haraldcli.move(0,0)
-    haraldsql.drop_dev_table(cursor)
-    haraldsql.close_database(connection)
+    def __init__(self):
+        self.write_file = False
+        self.filename = None
+        self.buildb = False
+
+    def minus_w(self, filename):
+        self.filename = filename
+        self.write_file = True
+
+    def minus_b(self):
+        self.buildb = True
+
+    def cleanup(self, connection, cursor):
+        haraldcli.clear()
+        haraldcli.move(0,0)
+        haraldsql.drop_dev_table(cursor)
+        haraldsql.close_database(connection)
 
 
-try:
-    opts, args = getopt.getopt(sys.argv[1:], "hw:b", ["help", "write=", "build"])
-except getopt.GetoptError, err:
-    print str("Unknown Command use --help for information")
-    haraldusage.usage()
+#init main class and handle args
+scanner = Harald_main()
+haraldargs.cmdargs(sys.argv[1:],scanner)
 
-write_file = False
-filename = None
-buildb = False
-
-for o, a in opts:
-    if o in ("-b", "--build"):
-        buildb = True
-    elif o in ("-w", "--write"):
-        write_file = True
-        filename = a
-    elif o in ("-h", "--help"):
-	    haraldusage.usage()
-    else:
-        assert False, "unhandled option"
-
-if haraldsql.chk_database() == False and buildb == False:
-    haraldusage.no_db()
-
+#init the database and get connections
 connection = haraldsql.open_database()
 cursor = haraldsql.get_cursor(connection)
+haraldsql.setup_dev_table(connection)
 
-if buildb:
-    status = haraldsql.refresh_maclist(connection)
-    for k, v in status.iteritems():
-       print k, ': ', v
-    print "Database Built"
+if scanner.buildb:
+    haraldargs.build_db(connection)
 
-elif buildb == False:
-    haraldsql.setup_dev_table(connection)
+#sets up the discoverer
+d = discovery.harald_discoverer()
+d.set_cursor(cursor)
 
-    d = discovery.harald_discoverer()
-    d.set_cursor(cursor)
-    haraldcli.init_screen()
+#init the screen
+haraldcli.init_screen()
 
-    try:
+#start the main loop
+try:
+    while True:
+
+        d.find_devices(lookup_names=True)
+
         while True:
+            d.process_event()
+            if d.done == True:
+                break
 
-            d.find_devices(lookup_names=True)
+        haraldcli.write_screen(cursor)
+        haraldsql.commit_db(connection)
 
-            while True:
-                d.process_event()
-                if d.done == True:
-                    break
+        if scanner.write_file:
+            haraldsql.write_dev_table(cursor, scanner.filename)
 
-            haraldcli.write_screen(cursor)
+#adapter not present
+except bluetooth.btcommon.BluetoothError:
+    scanner.cleanup(connection, cursor)
+    haraldusage.bluetooth_error()
 
-            if write_file:
-                haraldsql.write_dev_table(cursor, filename)
+#some sql function failed
+except (sqlite.OperationalError, sqlite.IntegrityError):
+    scanner.cleanup(connection, cursor)
+    haraldusage.no_db()
 
-    except bluetooth.btcommon.BluetoothError:
-        cleanup(connection, cursor)
-        haraldusage.bluetooth_error()
-
-    except (sqlite.OperationalError, sqlite.IntegrityError):
-        cleanup(connection, cursor)
-        haraldusage.no_db()
-
-    except (KeyboardInterrupt, SystemExit):
-        cleanup(connection, cursor)
+#ctrl-c caught and handled to exit gracefully
+except (KeyboardInterrupt, SystemExit):
+    scanner.cleanup(connection, cursor)

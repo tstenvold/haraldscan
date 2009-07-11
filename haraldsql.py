@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#
+# -*- coding: utf-8 -*-
 # Authors:
 #   Carson Farrell
 #   Terence Stenvold <tstenvold@gmail.com>
@@ -99,10 +99,22 @@ def insert_address_object(address, cursor):
 def insert_dev_table(cursor, addr, name, devclass, vendor):
 
     query = 'INSERT INTO devices (macaddr, name, devclass, vendor) VALUES (?, ?, ?, ?)'
+
+    #Very unsure why I have to do this. Sometimes python complains Please let me know if you do understand
+    #addr = unicode(addr,"utf-8")
+    #name = unicode(name,"utf-8")
+    #devclass = unicode(devclass,"utf-8")
+    #vendor = unicode(vendor,"utf-8")
+
     try:
         cursor.execute(query, (addr, name, devclass, vendor))
     except sqlite.IntegrityError:
         pass
+
+"""Commits current changes to database"""
+def commit_db(connection):
+
+    connection.commit()
 
 """Attempts to enter the data found in the MACLIST file into the database specified
 on the first line on the function."""
@@ -164,8 +176,8 @@ def write_dev_table(cursor, filename):
     results = show_dev_table(cursor)
 
     for row in results:
-        r = "Mac: %s\nName: %s\nClass: %s\nVendor: %s\n" % (row[1],row[2],row[3],row[4])
-        fp.write(r)
+        r = "Mac: %s\nName: %s\nClass: %s\nVendor: %s\n\n" % (row[1],row[2],row[3],row[4])
+        fp.write(r.encode("utf-8"))
 
     fp.write("\n")
     fp.close()

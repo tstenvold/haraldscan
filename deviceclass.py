@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#
+# -*- coding: utf-8 -*-
 # deviceclass.py
 # June 2009
 # Terence Stenvold <tstenvold@gmail.com>

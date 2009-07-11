@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#
+# -*- coding: utf-8 -*-
 # haraldusage.py
 # July 2009
 # Terence Stenvold <tstenvold@gmail.com>
