@@ -37,5 +37,5 @@ def cmdargs(argv, c):
         else:
             assert False, "unhandled option"
 
-    if haraldsql.chk_database() == False and buildb == False:
+    if haraldsql.chk_database() == False and c.buildb == False:
         haraldusage.no_db()
