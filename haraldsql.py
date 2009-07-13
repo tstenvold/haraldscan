@@ -37,7 +37,10 @@ def chk_database():
 """Opens Database and returns the cursor to it"""
 def open_database():
 
-            return sqlite.connect('macinfo.db')
+            con = sqlite.connect('macinfo.db')
+            con.text_factory = str
+            
+            return con
 
 def get_cursor(connection):
 
