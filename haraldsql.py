@@ -103,12 +103,6 @@ def insert_dev_table(cursor, addr, name, devclass, vendor):
 
     query = 'INSERT INTO devices (macaddr, name, devclass, vendor) VALUES (?, ?, ?, ?)'
 
-    #Very unsure why I have to do this. Sometimes python complains Please let me know if you do understand
-    #addr = unicode(addr,"utf-8")
-    #name = unicode(name,"utf-8")
-    #devclass = unicode(devclass,"utf-8")
-    #vendor = unicode(vendor,"utf-8")
-
     try:
         cursor.execute(query, (addr, name, devclass, vendor))
     except sqlite.IntegrityError:
@@ -180,7 +174,7 @@ def write_dev_table(cursor, filename):
 
     for row in results:
         r = "Mac: %s\nName: %s\nClass: %s\nVendor: %s\n\n" % (row[1],row[2],row[3],row[4])
-        fp.write(r.encode("utf-8"))
+        fp.write(r)
 
     fp.write("\n")
     fp.close()
