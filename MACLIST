@@ -1,7 +1,6 @@
 00:00:0A,Sanyo
 00:1A:OE,Motorola Mobile Devices
 00:1A:6B,Microsoft®
-00:1A:8A,Samsung Electronics Co. Ltd.
 00:1A:16,Nokia Danmark A/S
 00:1A:75,Sony Ericsson Mobile Communications
 00:1A:92,Toshiba
@@ -31,8 +30,8 @@
 00:1E:45,?Nokia? or ?Sony Ericsson?
 00:1E:B2,Microsoft®
 00:1E:DC,Sony Ericsson Mobile Communications
-00:1E:E1,Samsung
-00:1E:E2,Samsung
+00:1E:E1,Samsung Electronics Co. Ltd.
+00:1E:E2,Samsung Electronics Co. Ltd.
 00:1F:01,Nokia Danmark A/S
 00:1F:E2,Lenovo
 00:1F:5B,Apple Computer
@@ -41,8 +40,8 @@
 00:1F:6B,LG Electronics
 00:23:7A,Research in Motion
 00:1F:7E,Motorola Mobile Devices
-00:1F:CC,Samsung
-00:1F:CD,Samsung
+00:1F:CC,Samsung Electronics Co. Ltd.
+00:1F:CD,Samsung Electronics Co. Ltd.
 00:1F:DE,Nokia Danmark A/S
 00:1F:E3,LG Electronics
 00:1F:E4,Sony Ericsson Mobile Communications
@@ -59,8 +58,8 @@
 00:16:CF,NEC
 00:17:83,?Sony Ericsson?|?Motorola?|?Nokia?
 00:17:C3,Ever KTFT
-00:17:E3,Samsung
-00:17:E5,Samsung
+00:17:E3,Samsung Electronics Co. Ltd.
+00:17:E5,Samsung Electronics Co. Ltd.
 00:17:FA,Microsoft®
 00:19:79,Nokia Danmark A/S
 00:19:B7,Nokia Danmark A/S
@@ -70,8 +69,8 @@
 00:21:9E,Sony Ericsson
 00:21:85,Toshiba
 00:21:86,Microsoft
-00:21:D1,Samsung
-00:21:D2,Samsung
+00:21:D1,Samsung Electronics Co. Ltd.
+00:21:D2,Samsung Electronics Co. Ltd.
 00:21:4F,Panasonic
 00:21:FB,LG Electronics
 00:22:41,Apple Computer
@@ -79,7 +78,7 @@
 00:22:69,Lenovo
 00:22:98,Sony Ericsson
 00:22:FD,Nokia Danmark A/S
-00:23:3A,Samsung
+00:23:3A,Samsung Electronics Co. Ltd.
 00:23:6C,Apple Computer
 00:23:12,Apple Computer
 00:23:45,Sony Ericsson
@@ -89,6 +88,19 @@
 00:E0:91,LG Electronics
 08:00:1F,Sharp Electronics
 08:00:7B,Sanyo
+00:23:F1,Sony Ericsson
+00:1C:62,LG Electronics
+00:1C:12,Hewlett Packard
+00:22:A9,LG Electronics
+00:23:D6,Samsung Electronics Co. Ltd.
+00:13:6C,Tom Tom
+00:10:6E,Nokia Danmark A/S
+00:23:B4,Nokia Danmark A/S
+00:21:FC,Nokia Danmark A/S
+00:23:D7,Samsung Electronics Co. Ltd.
+00:24:90,Samsung Electronics Co. Ltd.
+00:1E:A4,Ford
+00:08:3D,Nokia Danmark A/S
 00:1C:B3,Apple
 00:25:00,Apple
 00:19:15,TECOM Co. Ltd.
