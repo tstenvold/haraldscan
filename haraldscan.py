@@ -22,6 +22,7 @@ class Harald_main:
         self.write_file = False
         self.filename = None
         self.buildb = False
+        self.num_entry = 0
 
     def minus_w(self, filename):
         self.filename = filename
@@ -45,6 +46,7 @@ haraldargs.cmdargs(sys.argv[1:],scanner)
 connection = haraldsql.open_database()
 cursor = haraldsql.get_cursor(connection)
 haraldsql.setup_dev_table(connection)
+num_devices = 0
 
 if scanner.buildb:
     haraldargs.build_db(connection)
@@ -69,9 +71,13 @@ try:
 
         haraldcli.write_screen(cursor)
         haraldsql.commit_db(connection)
+        num_devices = haraldsql.number_devices(cursor)
 
-        if scanner.write_file:
+        if scanner.write_file and num_devices > scanner.num_entry:
             haraldsql.write_dev_table(cursor, scanner.filename)
+
+        if num_devices > scanner.num_entry:
+            scanner.num_entry = num_devices
 
 #adapter not present
 except bluetooth.btcommon.BluetoothError:

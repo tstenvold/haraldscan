@@ -39,7 +39,7 @@ def open_database():
 
             con = sqlite.connect('macinfo.db')
             con.text_factory = str
-            
+
             return con
 
 def get_cursor(connection):
@@ -165,10 +165,13 @@ def show_dev_table(cursor):
 
 """Writes the devices table to a file specified
 by the parameter passed in"""
-#Needs error handling
 def write_dev_table(cursor, filename):
 
     fp = open(filename, 'w')
+
+    if fp == None:
+        print "Could not Open File"
+        system.exit(1)
 
     results = show_dev_table(cursor)
 
@@ -179,6 +182,18 @@ def write_dev_table(cursor, filename):
     fp.write("\n")
     fp.close()
 
+"""Returns the number of entries"""
+def number_devices(cursor):
+
+    try:
+        cursor.execute('SELECT COUNT(*) FROM devices')
+        row = cursor.fetchone()
+        if row == None:
+            return 0
+        else:
+            return row
+    except sqlite.IntegrityError:
+        return 0
 
 """Resolves mac address to a vendor
 Take a full mac address and resolves it using it's first 3 bytes"""

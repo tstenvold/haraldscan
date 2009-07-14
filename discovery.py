@@ -12,8 +12,7 @@ import deviceclass
 import sys,os
 import haraldsql
 import haraldusage
-
-#This is really poorly done!
+
 class harald_discoverer(bluetooth.DeviceDiscoverer):
 
     def set_cursor(self, cursor):
@@ -28,7 +27,7 @@ class harald_discoverer(bluetooth.DeviceDiscoverer):
         devman = haraldsql.mac_resolve(self.cursor, addr)
 
         if devman == 'Unknown':
-            unkown_mac(addr)
+            unkown_mac(addr, name)
 
         haraldsql.insert_dev_table(self.cursor, addr, name, devclass, devman)
 
@@ -49,10 +48,9 @@ def service_discover(addr):
 
 """This will get all possible info on an unresolved device MAC addr
 Please Send these files to me at tstenvold@gmail.com"""
-def unkown_mac(addr):
+def unkown_mac(addr, name):
 
     new_services = service_discover(addr)
-    name = bluetooth.lookup_name(addr, timeout=8)
 
     fp = open("%s" % addr[0:8] , "w")
 
