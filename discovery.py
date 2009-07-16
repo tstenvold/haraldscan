@@ -18,6 +18,9 @@ class harald_discoverer(bluetooth.DeviceDiscoverer):
     def set_cursor(self, cursor):
         self.cursor = cursor
 
+    def set_service(self):
+        self.service = True
+
     def pre_inquiry(self):
         self.done = False
 
@@ -26,7 +29,7 @@ class harald_discoverer(bluetooth.DeviceDiscoverer):
         devclass = deviceclass.majordev_class(device_class)
         devman = haraldsql.mac_resolve(self.cursor, addr)
 
-        if devman == 'Unknown':
+        if devman == 'Unknown' or self.service:
             unkown_mac(addr, name)
 
         haraldsql.insert_dev_table(self.cursor, addr, name, devclass, devman)

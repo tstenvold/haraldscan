@@ -22,7 +22,7 @@ def build_db(connection):
 def cmdargs(argv, c):
 
     try:
-        opts, args = getopt.getopt(argv, "hw:b", ["help", "write=", "build"])
+        opts, args = getopt.getopt(argv, "hw:bs", ["help", "write=", "build","service"])
     except getopt.GetoptError, err:
         print str("Unknown Command use --help for information")
         haraldusage.usage()
@@ -34,6 +34,8 @@ def cmdargs(argv, c):
             c.minus_w(a)
         elif o in ("-h", "--help"):
 	        haraldusage.usage()
+        elif o in ("-s", "--service"):
+	        c.minus_s()
         else:
             assert False, "unhandled option"
 

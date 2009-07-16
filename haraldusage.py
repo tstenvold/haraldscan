@@ -14,7 +14,10 @@ def usage():
     print "Options:"
     print "\t-b --build\t: Builds MAC Addr database. Ignores all other options"
     print "\t-h --help\t: Shows this help menu"
-    print "\t-w --write file\t: Outputs discovered device info to (file) specified. Overwrites any existing file\n"
+    print "\t-s --service\t: Does a service scan of all devices found and saves"
+    print "\t\t\t  a file like a 'Unknown' vendor device would."
+    print "\t-w --write file\t: Outputs discovered device info to (file) specified."
+    print "\t\t\t  Overwrites any existing file\n"
     sys.exit(1)
 
 def bluetooth_error():

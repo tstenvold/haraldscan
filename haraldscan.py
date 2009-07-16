@@ -21,6 +21,7 @@ class Harald_main:
     def __init__(self):
         self.write_file = False
         self.filename = None
+        self.service = False
         self.buildb = False
         self.num_entry = 0
 
@@ -30,6 +31,9 @@ class Harald_main:
 
     def minus_b(self):
         self.buildb = True
+
+    def minus_s(self):
+        self.serivce = True
 
     def cleanup(self, connection, cursor):
         haraldcli.clear()
@@ -54,6 +58,9 @@ if scanner.buildb:
 #sets up the discoverer
 d = discovery.harald_discoverer()
 d.set_cursor(cursor)
+
+if scanner.serivce:
+    d.set_service()
 
 #init the screen
 haraldcli.init_screen()
