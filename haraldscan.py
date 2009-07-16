@@ -58,9 +58,7 @@ if scanner.buildb:
 #sets up the discoverer
 d = discovery.harald_discoverer()
 d.set_cursor(cursor)
-
-if scanner.service:
-    d.set_service()
+d.set_service(scanner.service)
 
 #init the screen
 haraldcli.init_screen()

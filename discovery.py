@@ -18,8 +18,8 @@ class harald_discoverer(bluetooth.DeviceDiscoverer):
     def set_cursor(self, cursor):
         self.cursor = cursor
 
-    def set_service(self):
-        self.service = True
+    def set_service(self, service):
+        self.service = service
 
     def pre_inquiry(self):
         self.done = False
