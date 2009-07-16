@@ -33,7 +33,7 @@ class Harald_main:
         self.buildb = True
 
     def minus_s(self):
-        self.serivce = True
+        self.service = True
 
     def cleanup(self, connection, cursor):
         haraldcli.clear()
