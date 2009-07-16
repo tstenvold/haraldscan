@@ -59,7 +59,7 @@ if scanner.buildb:
 d = discovery.harald_discoverer()
 d.set_cursor(cursor)
 
-if scanner.serivce:
+if scanner.service:
     d.set_service()
 
 #init the screen
