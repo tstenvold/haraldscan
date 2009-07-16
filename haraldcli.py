@@ -18,18 +18,12 @@ def right(count):
     for i in range(1,count):
 	    sys.stdout.write("\x1b[C")
 
-def columns(col1, col2, col3, col4):
-
-    print col1[:17],
-    right(20-len(col1[:17]))
-    print col2[:13],
-    right(15-len(col2[:15]))
-    print col3[:18],
-    right(20-len(col3[:20]))
-    print col4[:25]
-
 def clear():
   print '\033[2J'
+
+def clrtoeol():
+  print '\033[K'
+
 
 def savecursor():
 	sys.stdout.write("\x1b7")
@@ -37,7 +31,16 @@ def savecursor():
 def restorecursor():
 	sys.stdout.write("\x1b8")
 
+def columns(col1, col2, col3, col4):
 
+    clrtoeol()
+    print col1[:17],
+    right(20-len(col1[:17]))
+    print col2[:13],
+    right(15-len(col2[:15]))
+    print col3[:18],
+    right(20-len(col3[:20]))
+    print col4[:25]
 def init_screen():
 
     clear()
