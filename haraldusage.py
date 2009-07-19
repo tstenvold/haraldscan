@@ -20,6 +20,11 @@ def usage():
     print "\t\t\t  Overwrites any existing file\n"
     sys.exit(1)
 
+def os_error():
+
+    print "Error:\n\tYour Operating System is not supported or undetectable\n"
+    sys.exit(1)
+
 def bluetooth_error():
 
     print "Error:\n\tNo Bluetooth Adapter Found. Please run 'hciconfig hci0 up' If Adapter is present but not working\n"
