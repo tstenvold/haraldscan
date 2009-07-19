@@ -13,7 +13,7 @@ import haraldsql
 import haraldcli
 import haraldargs
 import haraldusage
-import time,sys,os,platform
+import time,sys,os
 import bluetooth
 
 class Harald_main:
@@ -24,7 +24,6 @@ class Harald_main:
         self.service = False
         self.buildb = False
         self.num_entry = 0
-        self.osys = platform.system()
 
     def minus_w(self, filename):
         self.filename = filename
@@ -57,16 +56,10 @@ if scanner.buildb:
     haraldargs.build_db(connection)
 
 #sets up the discoverer
-if scanner.osys == "Linux":
-    d = discovery.harald_discoverer()
-    d.set_cursor(cursor)
-    d.set_service(scanner.service)
-elif scanner.osys == "Darwin":
-    dosx = discovery.harald_lightblue()
-    dosx.set_cursor(cursor)
-    dosx.set_service(scanner.service)
-else:
-    haraldusage.os_error()
+d = discovery.harald_discoverer()
+d.set_cursor(cursor)
+d.set_service(scanner.service)
+
 
 #init the screen
 haraldcli.init_screen()
@@ -75,20 +68,12 @@ haraldcli.init_screen()
 try:
     while True:
 
-        if scanner.osys == "Linux":
-            d.find_devices(lookup_names=True)
+        d.find_devices(lookup_names=True)
 
-            while True:
-                d.process_event()
-                if d.done == True:
-                    break
-
-        elif scanner.osys == "Darwin":
-            dx.find_devices()
-
-        else:
-            scanner.cleanup(connection, cursor)
-            haraldusage.os_error()
+        while True:
+            d.process_event()
+            if d.done == True:
+                break
 
         haraldcli.write_screen(cursor)
         haraldsql.commit_db(connection)

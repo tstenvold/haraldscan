@@ -8,12 +8,11 @@
 # available on those devices.
 
 import bluetooth
-import lightblue
 import deviceclass
 import sys,os
 import haraldsql
 import haraldusage
-"""GNU/Linux Class for Scanning """
+
 class harald_discoverer(bluetooth.DeviceDiscoverer):
 
     def set_cursor(self, cursor):
@@ -37,32 +36,6 @@ class harald_discoverer(bluetooth.DeviceDiscoverer):
 
     def inquiry_complete(self):
         self.done = True
-
-"""OS X Class for scanning """
-class harald_lightblue():
-
-    def set_cursor(self, cursor):
-        self.cursor = cursor
-
-    def set_service(self, service):
-        self.service = service
-
-    def find_devices(self):
-        nearby_devices = lightblue.finddevices()
-
-        for addr, name, devclass in nearby_devices:
-            self.device_discovered(addr, devclass ,name)
-
-    def device_discovered(self, addr, device_class, name):
-
-        devclass = deviceclass.majordev_class(device_class)
-        devman = haraldsql.mac_resolve(self.cursor, addr)
-
-        if devman == 'Unknown' or self.service:
-            unkown_mac(addr, name)
-
-        haraldsql.insert_dev_table(self.cursor, addr, name, devclass, devman)
-
 
 
 """Takes a mac address and tries to discover services available if in range.
