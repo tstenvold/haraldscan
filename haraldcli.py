@@ -47,14 +47,25 @@ def init_screen():
 
     clear()
     move(0,0)
+    title_bar(0)
+    savecursor()
+
+#To be implemented
+#def redraw_screen(scanner):
+    #clearwholescreen without using clear()
+    #move(0,0)
+    #title_bar(scanner.num_devices)
+
+def title_bar(num_devices):
     print " "*35,
     print "Harald Scan"
     print "#"*80
-    print "Press Ctrl-C to Quit"
+    print "Press Ctrl-C to Quit",
+    print " "*39,
+    print "%d device(s) found" % num_devices
     print "#"*80
     print ""
     columns("MAC","Name","Class","Vendor")
-    savecursor()
 
 def write_screen(cursor):
 
