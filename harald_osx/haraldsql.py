@@ -118,7 +118,12 @@ on the first line on the function."""
 def refresh_maclist(connection):
 
     cursor = connection.cursor()
-
+    fp = open('MACLIST', 'r')
+    
+    if fp == None:
+        print "Could not Open File"
+        system.exit(1)
+    
     try:
         create_base_table(cursor)
     except sqlite.OperationalError:
@@ -126,15 +131,14 @@ def refresh_maclist(connection):
 
     status = {}
 
-    with open('MACLIST') as f:
-        for line in f:
-            x = line.split(',')
-            mac_address = MacAddress(x[0].strip(), x[1].strip())
+    for line in fp:
+        x = line.split(',')
+        mac_address = MacAddress(x[0].strip(), x[1].strip())
 
-            if insert_address_object(mac_address, cursor):
-                status[mac_address.prefix] = 'Added'
-            else:
-                status[mac_address.prefix] = 'Existed'
+        if insert_address_object(mac_address, cursor):
+            status[mac_address.prefix] = 'Added'
+        else:
+            status[mac_address.prefix] = 'Existed'
 
 
     connection.commit()
