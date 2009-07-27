@@ -118,12 +118,12 @@ on the first line on the function."""
 def refresh_maclist(connection):
 
     cursor = connection.cursor()
-    fp = open('MACLIST', 'r')
-    
+    fp = open('MACLIST', 'rb')
+
     if fp == None:
         print "Could not Open File"
         system.exit(1)
-    
+
     try:
         create_base_table(cursor)
     except sqlite.OperationalError:
@@ -171,7 +171,7 @@ def show_dev_table(cursor):
 by the parameter passed in"""
 def write_dev_table(cursor, filename):
 
-    fp = open(filename, 'w')
+    fp = open(filename, 'wb')
 
     if fp == None:
         print "Could not Open File"
@@ -198,6 +198,21 @@ def number_devices(cursor):
             return row
     except sqlite.IntegrityError:
         return 0
+
+"""Returns the number of entries"""
+def device_exists(cursor, addr):
+
+    query = 'SELECT * FROM devices WHERE macaddr LIKE ?'
+
+    try:
+        cursor.execute(query, (addr,))
+        row = cursor.fetchone()
+        if row == None:
+            return False
+        else:
+            return True
+    except (sqlite.OperationalError, sqlite.IntegrityError):
+        return False
 
 """Resolves mac address to a vendor
 Take a full mac address and resolves it using it's first 3 bytes"""

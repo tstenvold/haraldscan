@@ -50,11 +50,18 @@ def init_screen():
     title_bar(0)
     savecursor()
 
-#To be implemented
-#def redraw_screen(scanner):
-    #clearwholescreen without using clear()
-    #move(0,0)
-    #title_bar(scanner.num_devices)
+def clearwholescreen():
+
+    move(0,0)
+
+    for i in range(0,24):
+        clrtoeol()
+
+    move(0,0)
+
+def redraw_screen(scanner):
+    clearwholescreen()
+    title_bar(scanner.num_entry)
 
 def title_bar(num_devices):
     print " "*35,

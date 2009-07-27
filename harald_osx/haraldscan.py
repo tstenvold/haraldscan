@@ -69,7 +69,6 @@ try:
 
         dosx.find_devices()
 
-        haraldcli.write_screen(cursor)
         haraldsql.commit_db(connection)
         num_devices = haraldsql.number_devices(cursor)
 
@@ -78,6 +77,9 @@ try:
 
         if num_devices > scanner.num_entry:
             scanner.num_entry = num_devices
+
+        haraldcli.redraw_screen(scanner)
+        haraldcli.write_screen(cursor)
 
 #some sql function failed
 except (sqlite.OperationalError, sqlite.IntegrityError):

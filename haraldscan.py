@@ -75,7 +75,6 @@ try:
             if d.done == True:
                 break
 
-        haraldcli.write_screen(cursor)
         haraldsql.commit_db(connection)
         num_devices = haraldsql.number_devices(cursor)
 
@@ -84,6 +83,9 @@ try:
 
         if num_devices > scanner.num_entry:
             scanner.num_entry = num_devices
+
+        haraldcli.redraw_screen(scanner)
+        haraldcli.write_screen(cursor)
 
 #adapter not present
 except bluetooth.btcommon.BluetoothError:
