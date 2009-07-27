@@ -35,4 +35,5 @@ usage: haraldscan.py [options]
 Options:
 	-b --build	: Builds the MAC address database. Ignores all other options and runs itself
 	-h --help	: Shows this menu
+	-s --service: Does a service scan of all devices found and saves a file like a 'Unknown' vendor device would.
 	-w --write file	: Writes the devices found to this file. Overwrites any existing file
