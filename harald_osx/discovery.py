@@ -46,7 +46,7 @@ class harald_lightblue():
 returns the service available or 0 if it couldn't find any"""
 def service_discover(addr):
 
-    services = bluetooth.find_service(address=addr)
+    services = lightblue.findservice(address=addr)
 
     if len(services) > 0:
         return services
