@@ -55,17 +55,17 @@ def service_discover(addr):
 
 """This will get all possible info on an unresolved device MAC addr
 Please Send these files to me at tstenvold@gmail.com"""
-def unkown_mac(addr, name):
+def unkown_mac(addr, name, devclass):
 
     new_services = service_discover(addr)
 
-    fp = open("%s" % addr[0:8] , "w")
+    fp = open("%s" % addr[0:8] , "ab+")
 
     if "No Services" in new_services:
         fp.write(new_services)
-        fp.write("\nDevice Address: %s Name: %s\n\n" % (addr[0:8],name))
+        fp.write("\nDevice Address: %s Name: %s Class: %s \n\n" % (addr[0:8],name,devclass))
     else:
-        fp.write("Device Address: %s Name: %s\n\n'" % (addr[0:8],name))
+        fp.write("Device Address: %s Name: %s Class: %s \n\n" % (addr[0:8],name,devclass))
         for svc in new_services: 		#writes each new service to the file
             fp.write("Service Name: %s\n"    % svc["name"])
             fp.write("    Host:        %s\n" % svc["host"])
