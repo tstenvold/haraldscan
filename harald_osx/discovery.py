@@ -33,8 +33,10 @@ class harald_lightblue():
         devclass = deviceclass.majordev_class(device_class)
         devman = haraldsql.mac_resolve(self.cursor, addr)
 
-        if devman == 'Unknown' or self.service:
-            unkown_mac(addr, name)
+        if (devman == 'Unknown' and not haraldsql.device_exists(self.cursor, addr)) \
+        or (self.service and not haraldsql.device_exists(self.cursor, addr)):
+            unkown_mac(addr, name, devclass)
+
 
         haraldsql.insert_dev_table(self.cursor, addr, name, devclass, devman)
 

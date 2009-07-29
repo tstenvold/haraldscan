@@ -29,8 +29,7 @@ class harald_discoverer(bluetooth.DeviceDiscoverer):
         devclass = deviceclass.majordev_class(device_class)
         devman = haraldsql.mac_resolve(self.cursor, addr)
 
-        #check if device already has an entry
-        if devman == 'Unknown' \
+        if (devman == 'Unknown' and not haraldsql.device_exists(self.cursor, addr)) \
         or (self.service and not haraldsql.device_exists(self.cursor, addr)):
             unkown_mac(addr, name, devclass)
 

@@ -1,154 +1,116 @@
-00:00:A0,Sanyo
-00:1A:0E,Motorola Mobile Devices
-00:1A:6B,Microsoft®
-00:1A:16,Nokia Danmark A/S
-00:1A:75,Sony Ericsson Mobile Communications
-00:1A:92,Toshiba
-00:1B:33,Nokia Danmark A/S
-00:1B:98,Samsung Electronics Co. Ltd.
-00:1B:AF,Nokia Danmark A/S
-00:1B:EE,Nokia Danmark A/S
-00:1C:43,Samsung Electronics Co. Ltd.
-00:1C:A4,Sony Ericsson Mobile Communications
-00:1C:D6,Nokia Danmark A/S
-00:1C:EE,Sharp
-00:1D:3B,Nokia Danmark A/S
-00:60:57,Nokia Danmark A/S
-00:1D:4F,Apple Computer
-00:1D:6E,Nokia Danmark A/S
-00:1D:25,Samsung Electronics Co. Ltd.
-00:1D:28,Sony Ericsson Mobile Communications
-00:1D:98,Nokia Danmark A/S
-00:1D:E9,Nokia Danmark A/S
-00:1D:F6,Samsung Electronics Co. Ltd.
-00:1D:FD,Nokia Danmark A/S
-00:1E:3A,Nokia Danmark A/S
-00:1E:3B,Nokia Danmark A/S
-00:1E:3D,Microsoft®
-00:1E:7D,Samsung Electronics Co. Ltd.
-00:1E:8D,Motorola Mobile Devices
-00:1E:45,?Nokia? or ?Sony Ericsson?
-00:1E:B2,Microsoft®
-00:1E:DC,Sony Ericsson Mobile Communications
-00:1E:E1,Samsung Electronics Co. Ltd.
-00:1E:E2,Samsung Electronics Co. Ltd.
-00:1F:01,Nokia Danmark A/S
-00:1F:E2,Lenovo
-00:1F:5B,Apple Computer
-00:1F:5C,Nokia Danmark A/S
-00:1F:5D,Nokia Danmark A/S
-00:1F:6B,LG Electronics
-00:23:7A,Research in Motion
-00:1F:7E,Motorola Mobile Devices
-00:1F:CC,Samsung Electronics Co. Ltd.
-00:1F:CD,Samsung Electronics Co. Ltd.
-00:1F:DE,Nokia Danmark A/S
-00:1F:E3,LG Electronics
-00:1F:E4,Sony Ericsson Mobile Communications
-00:1F:F3,Apple Computer
-00:03:7A,Toshiba Computer
-00:05:41,Garmin
-00:05:C9,LG Electronics
-00:10:47,Land Rover
-00:10:49,Land Rover
-00:12:1C,JVC Stereo
-00:15:AF,Microsoft
-00:16:4E,Nokia Danmark A/S
-00:16:6C,Samsung
-00:16:CF,NEC
-00:17:83,?Sony Ericsson?|?Motorola?|?Nokia?
-00:17:C3,Ever KTFT
-00:17:E3,Samsung Electronics Co. Ltd.
-00:17:E5,Samsung Electronics Co. Ltd.
-00:17:FA,Microsoft®
-00:19:79,Nokia Danmark A/S
-00:19:B7,Nokia Danmark A/S
-00:20:75,Mitsubishi
-00:21:06,Research in Motion
-00:21:09,Nokia Danmark A/S
-00:21:9E,Sony Ericsson
-00:21:85,Toshiba
-00:21:86,Microsoft
-00:21:D1,Samsung Electronics Co. Ltd.
-00:21:D2,Samsung Electronics Co. Ltd.
-00:21:4F,Panasonic
-00:21:FB,LG Electronics
-00:22:41,Apple Computer
-00:22:66,Nokia Danmark A/S
-00:22:69,Lenovo
-00:22:98,Sony Ericsson
-00:22:FD,Nokia Danmark A/S
-00:23:3A,Samsung Electronics Co. Ltd.
-00:23:6C,Apple Computer
-00:23:12,Apple Computer
-00:23:45,Sony Ericsson
-00:24:03,Nokia Danmark A/S
-00:24:9F,Research in Motion
-00:40:D0,Magellan
-00:E0:91,LG Electronics
-08:00:1F,Sharp Electronics
-08:00:7B,Sanyo
-00:23:F1,Sony Ericsson
-00:1C:62,LG Electronics
-00:1C:12,Hewlett Packard
-00:22:A9,LG Electronics
-00:23:D6,Samsung Electronics Co. Ltd.
-00:13:6C,Tom Tom
-00:10:6E,Nokia Danmark A/S
-00:23:B4,Nokia Danmark A/S
-00:21:FC,Nokia Danmark A/S
-00:23:D7,Samsung Electronics Co. Ltd.
-00:24:90,Samsung Electronics Co. Ltd.
-00:1E:A4,Ford
-00:08:3D,Nokia Danmark A/S
-00:25:BC,Apple Computer
-00:1E:52,Apple Computer
-00:15:DE,Nokia Danmark A/S
-00:16:BC,Nokia Danmark A/S
-00:1C:9A,Nokia Danmark A/S
-00:1E:A3,Nokia Danmark A/S
-00:22:FC,Nokia Danmark A/S
-00:16:D3,Magellan GPS
-00:1A:80,JVC Mobile Entertainment
-00:1E:37,Hewlett Packard
-00:21:AB,Nokia Danmark A/S
-00:21:FE,Nokia Danmark A/S
-00:23:39,Samsung Electronics Co. Ltd.
+00:C0:DF,KYE Systems Corp.
 00:24:7C,Nokia Danmark A/S
-00:24:EF,Sony Ericsson
-00:25:57,Research in Motion
-00:80:37,Trimble
-00:C0:DF,Targus
-00:1C:B3,Apple
-00:25:00,Apple
+00:1E:37,USI
+00:1A:80,Sony Corporation
+00:1C:9A,Nokia Danmark A/S
+00:1E:A4,Nokia Danmark A/S
+00:13:6C,TomTom
+00:23:D6,Samsung Electronics Co.LTD
+00:16:D3,Wistron Corporation
+00:22:A9,LG Electronics Inc
+08:00:1F,SHARP CORPORATION
+00:40:D0,MITAC INTERNATIONAL CORP.
+00:22:FC,Nokia Danmark A/S
+00:24:03,Nokia Danmark A/S
+00:23:12,Apple Inc
+00:1E:52,Apple Computer Inc
+00:23:3A,Samsung Electronics Co.Ltd
+00:22:98,Sony Ericsson Mobile Communications
+00:21:86,USI
+00:21:85,MICRO-STAR INT'L CO.LTD.
+00:10:6E,TADIRAN COM. LTD.
+00:21:09,Nokia Danmark A/S
+00:21:06,RIM Testing Services
+00:20:75,MOTOROLA COMMUNICATION ISRAEL
+00:19:79,Nokia Danmark A/S
+00:17:FA,Microsoft Corporation
+00:16:6C,Samsung Electonics Digital Video System Division
+00:15:AF,AzureWave Technologies Inc.
+00:05:41,Advanced Systems Co. Ltd.
+00:21:D1,Samsung Electronics Co.Ltd
+00:1F:E4,Sony Ericsson Mobile Communications
+00:16:4E,Nokia Danmark A/S
+00:1F:DE,Nokia Danmark A/S
+00:1C:62,LG Electronics Inc
+00:23:F1,Sony Ericsson Mobile Communications
+00:1F:5D,Nokia Danmark A/S
+00:21:4F,ALPS Electric Co. Ltd
+00:1F:5C,Nokia Danmark A/S
+00:1F:5B,Apple Inc.
+00:1F:E2,Hon Hai Precision Ind. Co. Ltd.
+00:1E:E1,Samsung Electronics Co.Ltd
+00:1E:B2,LG innotek
+00:1E:3D,Alps Electric Co. Ltd
+00:1E:3B,Nokia Danmark A/S
+00:1E:3A,Nokia Danmark A/S
+00:1D:28,Sony Ericsson Mobile Communications AB
+00:10:49,ShoreTel Inc
+00:60:57,MURATA MANUFACTURING CO. LTD.
+00:1E:7D,Samsung Electronics Co.Ltd
+00:1C:A4,Sony Ericsson Mobile Communications
+00:1A:92,ASUSTek COMPUTER INC.
+00:16:BC,Nokia Danmark A/S
+00:17:E5,Texas Instruments
+00:23:D7,Samsung Electronics
+00:23:39,Samsung Electronics
+00:1B:EE,Nokia Danmark A/S
+00:1C:B3,APPLE INC
+00:25:00,Apple Inc
+00:1C:EE,SHARP Corporation
+00:1A:75,Sony Ericsson Mobile Communications
+00:1F:F3,Apple Inc
+00:1D:98,Nokia Danmark A/S
+00:23:6C,Apple Inc
+00:1D:25,Samsung Electronics Co.Ltd
+00:1E:45,Sony Ericsson Mobile Communications AB
 00:19:15,TECOM Co. Ltd.
+00:1F:7E,Motorola Mobile Devices
+00:1C:43,Samsung Electronics Co.Ltd
+00:15:DE,Nokia Danmark A/S
+00:1A:0E,Cheng Uei Precision Industry Co.Ltd
 00:02:5B,Cambridge Silicon Radio
+00:22:66,Nokia Danmark A/S
+00:1E:8D,Motorola Mobile Devices
 00:17:5C,SHARP CORPORATION
+00:17:E3,Texas Instruments
 00:08:1B,Windigo Systems
 00:18:A4,Motorola Mobile Devices
 00:1C:35,Nokia Danmark A/S
-00:E0:03,Nokia Wireless Business
+00:22:B4,Motorola Mobile Devices
+00:E0:03,NOKIA WIRELESS BUSINESS COMMUN
+00:05:C9,LG Innotek Co. Ltd.
 00:12:37,Texas Instruments
 00:15:2A,Nokia GmbH
+00:1D:6E,Nokia Danmark A/S
 00:0D:93,Apple Computer
+00:17:C3,KTF Technologies Inc.
 00:0A:95,Apple Computer Inc.
 00:19:1D,Nintendo Co.Ltd.
 00:11:24,Apple Computer
 00:13:10,Cisco-Linksys LLC
 00:0A:3A,J-THREE INTERNATIONAL Holding Co. Ltd.
 00:14:A7,Nokia Danmark A/S
+00:80:37,Ericsson Group
 00:02:C7,ALPS ELECTRIC Co. Ltd.
+00:21:FC,Nokia Danmark A/S
+00:25:BC,Apple Inc
 00:17:00,Motorola MDb
+00:25:57,Research In Motion
+08:00:7B,SANYO ELECTRIC CO. LTD.
 00:12:D2,Texas Instruments
+00:24:9F,RIM Testing Services
 00:16:DB,Samsung Electronics Co. Ltd.
 00:16:CB,Apple Computer
 00:0E:9B,Ambit Microsystems Corporation
 00:16:B8,Sony Ericsson Mobile Communications
+00:1D:4F,Apple Computer Inc.
 00:15:B9,Samsung Electronics Co. Ltd.
 00:18:F8,Cisco-Linksys LLC
 00:12:62,Nokia Danmark A/S
 00:18:C5,Nokia Danmark A/S
 00:0F:B3,Actiontec Electronics Inc
+00:24:90,Samsung Electronics Co.LTD
+00:1D:FD,Nokia Danmark A/S
 00:09:2D,HTC Corporation
 00:14:51,Apple Computer Inc.
 00:16:8F,GN Netcom as
@@ -157,21 +119,30 @@
 00:0F:86,Research In Motion Limited
 00:13:FD,Nokia Danmark A/S
 00:17:4B,Nokia Danmark A/S
+00:22:69,Hon Hai Precision Ind. Co. Ltd.
 00:02:72,CC&C Technologies Inc.
 00:17:D5,Samsung Electronics Co. Ltd.
+00:21:9E,Sony Ericsson Mobile Communications
 00:19:1F,Microlink communications Inc.
 00:11:9F,Nokia Danmark A/S
-00:05:4F,Garmin GPS
+00:21:FB,LG Electronics
+00:23:B4,Nokia Danmark A/S
+00:05:4F,PRIVATE
+00:1F:CC,Samsung Electronics Co.Ltd
 00:20:E0,Actiontec Electronics Inc.
 00:0E:6D,Murata Manufacturing Co. Ltd.
 00:1A:DC,Nokia Danmark A/S
 00:07:A4,GN Netcom Ltd.
+00:22:FD,Nokia Danmark A/S
+00:10:47,ECHO ELETRIC CO. LTD.
 00:07:E0,Palm Inc.
 00:0E:07,Sony Ericsson Mobile Communications AB
 00:03:89,Plantronics
 00:17:F2,Apple Computer
 00:02:EE,Nokia Danmark A/S
+00:1A:6B,USI
 00:0A:94,ShangHai cellink CO. LTD
+00:1D:3B,Nokia Danmark A/S
 00:0D:3C,i.Tech Dynamic Ltd
 00:16:FE,Alps Electric Co. Ltd
 00:13:71,Motorola CHS
@@ -179,38 +150,74 @@
 00:16:20,Sony Ericsson Mobile Communications AB
 00:0E:A1,Formosa Teletek Corporation
 00:13:70,Nokia Danmark A/S
-00:0C:A7,Suzhou Technologies Co. Ltd.
+00:19:B7,Nokia Danmark A/S
+00:0C:A7,Metro (Suzhou) Technologies Co. Ltd.
+00:1E:E2,Samsung Electronics Co.Ltd
 00:18:13,Sony Ericsson Mobile Communications
+00:1F:01,Nokia Danmark A/S
 00:12:D1,Texas Instruments Inc
 00:18:AF,Samsung Electronics Co. Ltd.
+00:1E:A3,Nokia Danmark A/S
 00:19:2D,Nokia Corporation
+00:21:FE,Nokia Danmark A/S
+00:23:45,Sony Ericsson Mobile Communications
+00:1C:D6,Nokia Danmark A/S
 00:19:A1,LG INFORMATION & COMM.
+00:00:A0,SANYO Electric Co. Ltd.
 00:1A:89,Nokia Danmark A/S
 00:11:67,Integrated System Solution Corp.
 00:50:F2,MICROSOFT CORP.
 00:1A:8A,Samsung Electronics Co. Ltd.
+00:1D:E9,Nokia Danmark A/S
 00:16:41,USI
 08:00:28,Texas Instruments
 00:19:4F,Nokia Danmark A/S
+00:1C:12,Motorola Mobile Devices
 00:17:E2,Motorola Mobile Devices
-00:22:B4,Motorola Mobile Devices
+00:1B:AF,Nokia Danmark A/S
 00:10:C6,USI
 00:17:84,Motorola Mobile Devices
 00:1C:CC,Research In Motion Limited
+00:1E:DC,Sony Ericsson Mobile Communications AB
 00:12:EE,Sony Ericsson Mobile Communications AB
 00:15:A0,Nokia Danmark A/S
+00:03:7A,Taiyo Yuden Co. Ltd.
+00:1D:F6,Samsung Electronics Co.Ltd
+00:24:EF,Sony Ericsson Mobile Communications
 00:16:75,Motorola MDb
 00:12:56,LG INFORMATION & COMM.
 00:16:CE,Hon Hai Precision Ind. Co. Ltd.
 00:0F:3D,D-Link Corporation
+00:1F:CD,Samsung Electronics
 00:14:A4,Hon Hai Precision Ind. Co. Ltd.
+00:12:1C,PARROT S.A.
 00:08:2A,Powerwallz Network Security
+00:23:7A,RIM
 00:01:E3,Siemens AG
 00:07:CF,Anoto AB
+00:1F:6B,LG Electronics
 00:0C:55,Microlink Communications Inc.
 00:17:B0,Nokia Danmark A/S
+00:E0:91,LG ELECTRONICS INC.
 00:19:63,Sony Ericsson Mobile Communications AB
+00:22:41,Apple Inc
+00:17:83,Texas Instruments
 00:1B:59,Sony Ericsson Mobile Communications AB
+00:1B:98,Samsung Electronics Co. Ltd.
+00:16:CF,Hon Hai Precision Ind. Co. Ltd.
+00:1A:16,Nokia Danmark A/S
+00:21:D2,Samsung Electronics Co.Ltd
+00:1B:33,Nokia Danmark A/S
 00:16:38,TECOM Co. Ltd.
 00:1E:75,LG Electronics
 00:1C:D4,Nokia Danmark A/S
+00:1F:E3,LG Electronics
+00:21:AB,Nokia Danmark A/S
+00:08:3D,Nokia Danmark A/S
+00:19:7E,Hon Hai Precision Ind. Co., Ltd
+00:1C:88,TRANSYSTEM INC.
+00:1E:4C,Hon Hai Precision Ind.Co., Ltd.
+00:21:08,Nokia Danmark A/S
+00:22:15,ASUSTek COMPUTER INC.
+00:24:04,Nokia Danmark A/S
+00:25:66,Samsung Electronics Co., Ltd.

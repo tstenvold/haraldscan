@@ -1,6 +1,6 @@
 README
 
-June 2009
+July 2009
 Author:
     Terence Stenvold <tstenvold@gmail.com>
 Contributors:
@@ -16,11 +16,17 @@ may be an automatic function but right now I request you email me these files @ 
 
 Requirements
 ============
-Python 2.6
-Pybluez
-PySQLite
 
-Only Works under GNU/Linux or Unix Variants
+GNU/Linux
+    Python 2.6
+    Pybluez
+    PySQLite2
+
+Mac OS X
+    Python 2.5.4
+    Lightblue
+    PySQLite2
+
 
 Installation
 ============
