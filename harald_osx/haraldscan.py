@@ -86,6 +86,11 @@ except (sqlite.OperationalError, sqlite.IntegrityError):
     scanner.cleanup(connection, cursor)
     haraldusage.no_db()
 
+#adapter not present
+except lightblue._lightbluecommon.BluetoothError:
+    scanner.cleanup(connection, cursor)
+    haraldusage.bluetooth_error()
+
 #ctrl-c caught and handled to exit gracefully
 except (KeyboardInterrupt, SystemExit):
     scanner.cleanup(connection, cursor)
