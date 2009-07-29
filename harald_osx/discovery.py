@@ -44,9 +44,9 @@ class harald_lightblue():
 
 """Takes a mac address and tries to discover services available if in range.
 returns the service available or 0 if it couldn't find any"""
-def service_discover(addr):
+def service_discover(address):
 
-    services = lightblue.findservices(address=addr)
+    services = lightblue.findservices(addr=address)
 
     if len(services) > 0:
         return services
@@ -67,15 +67,8 @@ def unkown_mac(addr, name, devclass):
     else:
         fp.write("Device Address: %s Name: %s Class: %s \n\n" % (addr[0:8],name,devclass))
         for svc in new_services: 		#writes each new service to the file
-            fp.write("Service Name: %s\n"    % svc["name"])
-            fp.write("    Host:        %s\n" % svc["host"])
-            fp.write("    Description: %s\n" % svc["description"])
-            fp.write("    Provided By: %s\n" % svc["provider"])
-            fp.write("    Protocol:    %s\n" % svc["protocol"])
-            fp.write("    channel/PSM: %s\n" % svc["port"])
-            fp.write("    svc classes: %s\n"% svc["service-classes"])
-            fp.write("    profiles:    %s\n"% svc["profiles"])
-            fp.write("    service id:  %s \n\n"% svc["service-id"])
+            fp.write("Service Name: %s\n"    % svc[2])
+            fp.write("    service id:  %s \n\n"% svc[1])
 
     fp.close() #closes file
 
