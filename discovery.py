@@ -7,6 +7,20 @@
 # Used for discoverying broadcasting Bluetooth devices and getting the services
 # available on those devices.
 
+#This file is part of Haraldscan.
+#
+#Haraldscan is free software: you can redistribute it and/or modify
+#it under the terms of the GNU General Public License Version 3 as
+#published by the Free Software Foundation.
+#
+#Haraldscan is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU General Public License Version 3 for more details.
+#
+#You should have received a copy of the GNU General Public License
+#Version 3 along with Haraldscan.  If not, see <http://www.gnu.org/licenses/>.
+
 import bluetooth
 import deviceclass
 import sys,os
