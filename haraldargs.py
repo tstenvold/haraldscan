@@ -22,6 +22,7 @@
 
 import haraldusage
 import haraldsql
+import haraldupdate
 import sys
 import getopt
 
@@ -36,7 +37,7 @@ def build_db(connection):
 def cmdargs(argv, c):
 
     try:
-        opts, args = getopt.getopt(argv, "hw:bs", ["help", "write=", "build","service"])
+        opts, args = getopt.getopt(argv, "hw:ubs", ["help", "write=", "update" "build","service"])
     except getopt.GetoptError, err:
         print str("Unknown Command use --help for information")
         haraldusage.usage()
@@ -46,6 +47,9 @@ def cmdargs(argv, c):
             c.minus_b()
         elif o in ("-w", "--write"):
             c.minus_w(a)
+        elif o in ("-u", "--update"):
+            if haraldupdate.check_now():
+                c.minus_b()
         elif o in ("-h", "--help"):
 	        haraldusage.usage()
         elif o in ("-s", "--service"):

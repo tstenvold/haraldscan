@@ -146,8 +146,7 @@ def refresh_maclist(connection):
     status = {}
 
     for line in fp:
-        x = line.split(',')
-        mac_address = MacAddress(x[0].strip(), x[1].strip())
+        mac_address = MacAddress(line[0:8], line[9:])
 
         if insert_address_object(mac_address, cursor):
             status[mac_address.prefix] = 'Added'
