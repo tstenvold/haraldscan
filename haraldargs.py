@@ -50,6 +50,8 @@ def cmdargs(argv, c):
         elif o in ("-u", "--update"):
             if haraldupdate.check_now():
                 c.minus_b()
+            else:
+                sys.exit(0)
         elif o in ("-h", "--help"):
 	        haraldusage.usage()
         elif o in ("-s", "--service"):

@@ -20,7 +20,6 @@
 #You should have received a copy of the GNU General Public License
 #Version 3 along with Haraldscan.  If not, see <http://www.gnu.org/licenses/>.
 
-import haraldsql
 import sys,os
 import urllib
 
@@ -38,7 +37,6 @@ def check_now():
     for line in flocal:
         llines+=1
         
-    print llines
 
     url = 'http://haraldscan.googlecode.com/svn/trunk/MACLIST'
     fweb = urllib.urlopen(url)
@@ -46,14 +44,15 @@ def check_now():
     for lines in fweb.readlines():
         rlines+=1
         
-    print rlines
         
     if rlines > llines:
         urllib.urlretrieve(url, 'MACLIST', reporthook)
         print "Updated MACLIST Retrieved"
         print "Rebuilding Database Now"
         return True
-        
+    else:
+        print "Already using the newest version"    
+    
     return False
 
 if __name__ == '__main__':
