@@ -187,8 +187,8 @@ def write_dev_table(cursor, filename):
     fp = open(filename, 'wb')
 
     if fp == None:
-        print "Could not Open File"
-        system.exit(1)
+        print "Could not open File"
+        sys.exit(1)
 
     results = show_dev_table(cursor)
 

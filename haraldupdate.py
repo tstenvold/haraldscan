@@ -21,7 +21,7 @@
 #Version 3 along with Haraldscan.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys,os
-import urllib
+import urllib2
 
 
 def reporthook(*a): print a
@@ -32,19 +32,30 @@ def check_now():
     rlines = 0
     llines = 0
     
+    
     flocal = open('MACLIST', 'rb')
     
     for line in flocal:
         llines+=1
         
+    if flocal == None:
+        print "Could not open MACLIST"
+        sys.exit(1)
+        
+    try:        
+        url = 'http://haraldscan.googlecode.com/svn/trunk/MACLIST'
+        fweb = urllib2.urlopen(url)
 
-    url = 'http://haraldscan.googlecode.com/svn/trunk/MACLIST'
-    fweb = urllib.urlopen(url)
-    
-    for lines in fweb.readlines():
-        rlines+=1
         
-        
+        for lines in fweb.readlines():
+            rlines+=1
+      
+    #should be in usage  
+    except urllib2.URLError:
+        print "Could not retrieve file"
+        print "Please check your internet connection"
+        sys.exit(1)
+       
     if rlines > llines:
         urllib.urlretrieve(url, 'MACLIST', reporthook)
         print "Updated MACLIST Retrieved"
