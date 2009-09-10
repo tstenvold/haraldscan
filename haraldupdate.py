@@ -22,6 +22,7 @@
 
 import sys,os
 import urllib2
+import urllib
 
 
 def reporthook(*a): print a
