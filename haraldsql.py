@@ -5,7 +5,7 @@
 #   Terence Stenvold <tstenvold@gmail.com>
 # Date: June 26th 2009
 #
-# Written to read the MACINFO file into an sqlite database called macinfo.db for
+# Written to read the MACINFO file into an sqlite3 database called macinfo.db for
 # the haraldscanner program to work with. This script assumes that data given to it
 # is in the correct format (comma seperated, two column; ie: 11:22:33, Spam)
 # and makes no attempt to guess what the input means.
@@ -27,7 +27,7 @@
 #You should have received a copy of the GNU General Public License
 #Version 3 along with Haraldscan.  If not, see <http://www.gnu.org/licenses/>.
 
-from pysqlite2 import dbapi2 as sqlite
+import sqlite3
 import os
 import haraldusage
 
@@ -51,7 +51,7 @@ def chk_database():
 """Opens Database and returns the cursor to it"""
 def open_database():
 
-            con = sqlite.connect('macinfo.db')
+            con = sqlite3.connect('macinfo.db')
             con.text_factory = str
 
             return con
@@ -108,7 +108,7 @@ def insert_address_object(address, cursor):
     try:
         cursor.execute(query, (address.prefix, address.maker))
         return True;
-    except sqlite.IntegrityError:
+    except sqlite3.IntegrityError:
         pass
         return False;
 
@@ -119,7 +119,7 @@ def insert_dev_table(cursor, addr, name, devclass, vendor):
 
     try:
         cursor.execute(query, (addr, name, devclass, vendor))
-    except sqlite.IntegrityError:
+    except sqlite3.IntegrityError:
         pass
 
 """Commits current changes to database"""
@@ -140,7 +140,7 @@ def refresh_maclist(connection):
 
     try:
         create_base_table(cursor)
-    except sqlite.OperationalError:
+    except sqlite3.OperationalError:
         raise
 
     status = {}
@@ -166,7 +166,7 @@ def setup_dev_table(connection):
     try:
         drop_dev_table(cursor)
         create_dev_table(cursor)
-    except sqlite.OperationalError:
+    except sqlite3.OperationalError:
         raise
 
     connection.commit()
@@ -177,7 +177,7 @@ def show_dev_table(cursor):
     try:
         cursor.execute('SELECT * FROM devices')
         return cursor
-    except sqlite.IntegrityError:
+    except sqlite3.IntegrityError:
         return 0
 
 """Writes the devices table to a file specified
@@ -209,7 +209,7 @@ def number_devices(cursor):
             return 0
         else:
             return row
-    except sqlite.IntegrityError:
+    except sqlite3.IntegrityError:
         return 0
 
 """Returns the number of entries"""
@@ -224,7 +224,7 @@ def device_exists(cursor, addr):
             return False
         else:
             return True
-    except (sqlite.OperationalError, sqlite.IntegrityError):
+    except (sqlite3.OperationalError, sqlite3.IntegrityError):
         return False
 
 """Resolves mac address to a vendor
@@ -237,7 +237,7 @@ def mac_resolve(cursor, macaddr):
         cursor.execute(query, [macaddr[0:8]])
         for row in cursor:
             return row[2]
-    except sqlite.IntegrityError:
+    except sqlite3.IntegrityError:
         raise
     return "Unknown"
 

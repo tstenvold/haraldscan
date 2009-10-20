@@ -69,6 +69,8 @@ def clearwholescreen():
     move(0,0)
 
     for i in range(0,24):
+        #gotta move it
+        move(0,i)
         clrtoeol()
 
     move(0,0)
@@ -77,6 +79,8 @@ def redraw_screen(scanner):
     clearwholescreen()
     title_bar(scanner.num_entry)
 
+#TODO 
+#add length of scan and dev per time option
 def title_bar(num_devices):
     print " "*35,
     print "Harald Scan"

@@ -20,7 +20,7 @@
 #You should have received a copy of the GNU General Public License
 #Version 3 along with Haraldscan.  If not, see <http://www.gnu.org/licenses/>.
 
-from pysqlite2 import dbapi2 as sqlite
+import sqlite3
 import deviceclass
 import discovery
 import haraldsql
@@ -107,7 +107,7 @@ except bluetooth.btcommon.BluetoothError:
     haraldusage.bluetooth_error()
 
 #some sql function failed
-except (sqlite.OperationalError, sqlite.IntegrityError):
+except (sqlite3.OperationalError, sqlite3.IntegrityError):
     scanner.cleanup(connection, cursor)
     haraldusage.no_db()
 
