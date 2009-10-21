@@ -34,7 +34,7 @@ def build_db(connection):
     print "Database Built"
     sys.exit(1)
 
-#TODO 
+#TODO
 #Redo the whole cmd args handling this is only and clunky
 def cmdargs(argv, c):
 

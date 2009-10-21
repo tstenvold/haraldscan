@@ -38,6 +38,7 @@ class Harald_main:
         self.service = False
         self.buildb = False
         self.num_entry = 0
+        self.time_start = time.time()
 
     def minus_w(self, filename):
         self.filename = filename

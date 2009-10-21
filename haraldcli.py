@@ -22,7 +22,7 @@
 
 import haraldsql
 import haraldusage
-import sys,os
+import time,sys,os
 
 def move(new_x, new_y):
     print '\033[' + str(new_x) + ';' + str(new_y) + 'H'
@@ -61,7 +61,7 @@ def init_screen():
 
     clear()
     move(0,0)
-    title_bar(0)
+    title_bar(0,time.time())
     savecursor()
 
 def clearwholescreen():
@@ -69,7 +69,6 @@ def clearwholescreen():
     move(0,0)
 
     for i in range(0,24):
-        #gotta move it
         move(0,i)
         clrtoeol()
 
@@ -77,17 +76,19 @@ def clearwholescreen():
 
 def redraw_screen(scanner):
     clearwholescreen()
-    title_bar(scanner.num_entry)
+    title_bar(scanner.num_entry, scanner.time_start)
 
-#TODO 
+#TODO
 #add length of scan and dev per time option
-def title_bar(num_devices):
+def title_bar(num_devices, time_start):
     print " "*35,
     print "Harald Scan"
     print "#"*80
     print "Press Ctrl-C to Quit",
-    print " "*39,
-    print "%d device(s) found" % num_devices
+    time_past = ((time.time() - time_start) / 60)
+    mid = "%0.2f Mins Passed" % time_past + " %d device(s) found" % num_devices
+    print " "*(58 - len(mid)),
+    print mid
     print "#"*80
     print ""
     columns("MAC","Name","Class","Vendor")
