@@ -39,6 +39,7 @@ class Harald_main:
         self.buildb = False
         self.num_entry = 0
         self.time_start = time.time()
+	self.time_interval = 15
 
     def minus_w(self, filename):
         self.filename = filename
@@ -77,7 +78,7 @@ d.set_service(scanner.service)
 
 
 #init the screen
-haraldcli.init_screen()
+haraldcli.init_screen(scanner.time_interval)
 
 #start the main loop
 try:

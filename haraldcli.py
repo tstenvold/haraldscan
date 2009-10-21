@@ -56,12 +56,13 @@ def columns(col1, col2, col3, col4):
     right(15-len(col2[:15]))
     print col3[:18],
     right(20-len(col3[:20]))
-    print col4[:25]
-def init_screen():
+    print col4[:25]
+
+def init_screen(time_interval):
 
     clear()
     move(0,0)
-    title_bar(0,time.time())
+    title_bar(0,time.time(),time_interval)
     savecursor()
 
 def clearwholescreen():
@@ -76,17 +77,17 @@ def clearwholescreen():
 
 def redraw_screen(scanner):
     clearwholescreen()
-    title_bar(scanner.num_entry, scanner.time_start)
+    title_bar(scanner.num_entry, scanner.time_start, scanner.time_interval) 
 
 #TODO
 #add length of scan and dev per time option
-def title_bar(num_devices, time_start):
+def title_bar(num_devices, time_start, time_interval):
     print " "*35,
     print "Harald Scan"
     print "#"*80
     print "Press Ctrl-C to Quit",
     time_past = ((time.time() - time_start) / 60)
-    mid = "%0.2f Mins Passed" % time_past + " %d device(s) found" % num_devices
+    mid = "%0.2f Device per 15 mins " % (time_past/time_interval) + " %d device(s) found" % num_devices
     print " "*(58 - len(mid)),
     print mid
     print "#"*80
