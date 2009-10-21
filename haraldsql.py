@@ -175,7 +175,7 @@ def setup_dev_table(connection):
 def show_dev_table(cursor):
 
     try:
-        cursor.execute('SELECT * FROM devices')
+        cursor.execute('SELECT * FROM devices WHERE id > ((SELECT max(id) FROM devices) - 20)')
         return cursor
     except sqlite3.IntegrityError:
         return 0

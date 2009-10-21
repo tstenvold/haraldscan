@@ -87,7 +87,7 @@ def title_bar(num_devices, time_start, time_interval):
     print "#"*80
     print "Press Ctrl-C to Quit",
     time_past = ((time.time() - time_start) / 60)
-    mid = "%0.2f Device per 15 mins " % (time_past/time_interval) + " %d device(s) found" % num_devices
+    mid = "%0.2f Device per 15 mins " % ((num_devices/time_past)*time_interval) + " %d device(s) found" % num_devices
     print " "*(58 - len(mid)),
     print mid
     print "#"*80
