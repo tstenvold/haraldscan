@@ -69,7 +69,7 @@ def clearwholescreen():
 
     move(0,0)
 
-    for i in range(0,24):
+    for i in range(0,25):
         move(0,i)
         clrtoeol()
 
@@ -78,22 +78,16 @@ def clearwholescreen():
 def redraw_screen(scanner):
     clearwholescreen()
     title_bar(scanner.num_entry, scanner.time_start, scanner.time_interval)
- 
-def percentage_time(num_devices,time_start,time_interval):
-	
-    if (time.time() - time_start) <= time_interval : 
-        return num_devices
-    else:
-	return (num_devices / (time.time()-time_start) * time_interval)		
-#TODO
-#add length of scan and dev per time option
+
+#Displays the title of Harald Scan
 def title_bar(num_devices, time_start, time_interval):
     print " "*35,
     print "Harald Scan"
     print "#"*80
-    print "Press Ctrl-C to Quit",	
-    mid1 = "%0.2f Device per 15 mins" % percentage_time(num_devices,time_start,time_interval) 
-    mid2 = "%1d device(s) found" % num_devices
+    print "Press Ctrl-C to Quit",
+    #TODO SQL select last TIME_INTERVAL by sql timestampt + count(*)
+    mid1 = "TBA Device per 15 mins"
+    mid2 = "%d device(s) found" % num_devices
     print " "*(30 - len(mid1)),
     print mid1,
     print " "*(26 - len(mid2)),

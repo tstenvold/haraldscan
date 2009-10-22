@@ -28,7 +28,7 @@
 #Version 3 along with Haraldscan.  If not, see <http://www.gnu.org/licenses/>.
 
 import sqlite3
-import os
+import time,os
 import haraldusage
 
 """Represents a mapping between prefix and vendor. Using this instead of a dictionary
@@ -87,7 +87,8 @@ def create_dev_table(cursor):
     create_dev += 'macaddr char(18) UNIQUE,'
     create_dev += 'name varchar(100),'
     create_dev += 'devclass varchar(100),'
-    create_dev += 'vendor varchar(100));'
+    create_dev += 'vendor varchar(100),'
+    create_dev += 'timestamp varchar(100));'
 
     cursor.execute(create_dev)
 
@@ -115,10 +116,10 @@ def insert_address_object(address, cursor):
 """Inserts a device into the device table in the existing database."""
 def insert_dev_table(cursor, addr, name, devclass, vendor):
 
-    query = 'INSERT INTO devices (macaddr, name, devclass, vendor) VALUES (?, ?, ?, ?)'
+    query = 'INSERT INTO devices (macaddr, name, devclass, vendor, timestamp) VALUES (?, ?, ?, ?, ?)'
 
     try:
-        cursor.execute(query, (addr, name, devclass, vendor))
+        cursor.execute(query, (addr, name, devclass, vendor, time.time()))
     except sqlite3.IntegrityError:
         pass
 
@@ -175,7 +176,7 @@ def setup_dev_table(connection):
 def show_dev_table(cursor):
 
     try:
-        cursor.execute('SELECT * FROM devices WHERE id >= ((SELECT max(id) FROM devices) - 18)')
+        cursor.execute('SELECT * FROM devices WHERE id >= ((SELECT max(id) FROM devices) - 16)')
         return cursor
     except sqlite3.IntegrityError:
         return 0
@@ -240,6 +241,25 @@ def mac_resolve(cursor, macaddr):
     except sqlite3.IntegrityError:
         raise
     return "Unknown"
+
+"""Returns the number of devices
+found during the last n interval"""
+def timestamp_count(cursor, time_interval, time_start):
+
+    query = 'SELECT count(*) FROM devices WHERE timestamp >= ?'
+
+    timediff = ((time.time() / 60) - time_interval) * 60
+
+    try:
+        cursor.execute(query, (timediff))
+        row = cursor.fetchone()
+        if row == None:
+            return False
+        else:
+            return True
+    except (sqlite3.OperationalError, sqlite3.IntegrityError):
+        return False
+
 
 if __name__ == '__main__':
   haraldusage.usage()
