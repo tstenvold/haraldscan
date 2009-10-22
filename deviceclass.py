@@ -25,7 +25,7 @@
 #Version 3 along with Haraldscan.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import haraldusage
+import haraldargs
 
 #Major classes for Bluetooth
 def majordev_class(device_class):
@@ -195,5 +195,6 @@ def service_class(service_class):
 
     return serv_class
 
-if __name__ == '__main__':
-  haraldusage.usage()
+if __name__ == "__main__":
+    parser = haraldargs.cmd_parse([""])
+    parser.print_help()

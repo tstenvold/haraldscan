@@ -176,7 +176,7 @@ def setup_dev_table(connection):
 def show_dev_table(cursor):
 
     try:
-        cursor.execute('SELECT * FROM devices WHERE id >= ((SELECT max(id) FROM devices) - 16)')
+        cursor.execute('SELECT * FROM devices WHERE id >= ((SELECT max(id) FROM devices) - 15)')
         return cursor
     except sqlite3.IntegrityError:
         return 0
@@ -241,25 +241,3 @@ def mac_resolve(cursor, macaddr):
     except sqlite3.IntegrityError:
         raise
     return "Unknown"
-
-"""Returns the number of devices
-found during the last n interval"""
-def timestamp_count(cursor, time_interval, time_start):
-
-    query = 'SELECT count(*) FROM devices WHERE timestamp >= ?'
-
-    timediff = ((time.time() / 60) - time_interval) * 60
-
-    try:
-        cursor.execute(query, (timediff))
-        row = cursor.fetchone()
-        if row == None:
-            return False
-        else:
-            return True
-    except (sqlite3.OperationalError, sqlite3.IntegrityError):
-        return False
-
-
-if __name__ == '__main__':
-  haraldusage.usage()

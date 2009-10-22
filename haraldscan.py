@@ -39,8 +39,11 @@ class Harald_main:
         self.buildb = False
         self.num_entry = 0
         self.time_start = time.time()
-	self.time_interval = 15
+        self.time_interval = 15
 
+    def time_update(self, newtime):
+        self.time_interval = newtime
+        
     def minus_w(self, filename):
         self.filename = filename
         self.write_file = True
@@ -60,7 +63,7 @@ class Harald_main:
 
 #init main class and handle args
 scanner = Harald_main()
-haraldargs.cmdargs(sys.argv[1:],scanner)
+haraldargs.handle_args(sys.argv[1:],scanner)
 
 #init the database and get connections
 connection = haraldsql.open_database()
@@ -100,8 +103,7 @@ try:
         if num_devices > scanner.num_entry:
             scanner.num_entry = num_devices
 
-        haraldcli.redraw_screen(scanner)
-        haraldcli.write_screen(cursor)
+        haraldcli.redraw_screen(scanner, cursor)
 
 #adapter not present
 except bluetooth.btcommon.BluetoothError:

@@ -23,8 +23,10 @@
 import haraldusage
 import haraldsql
 import haraldupdate
-import sys
+import sys, time
 import getopt
+from optparse import OptionParser
+
 
 def build_db(connection):
 
@@ -34,32 +36,69 @@ def build_db(connection):
     print "Database Built"
     sys.exit(1)
 
-#TODO
-#Redo the whole cmd args handling this is only and clunky
-def cmdargs(argv, c):
+def cmd_parse(argv):
 
-    try:
-        opts, args = getopt.getopt(argv, "hw:ubs", ["help", "write=", "update" "build","service"])
-    except getopt.GetoptError, err:
-        print str("Unknown Command use --help for information")
-        haraldusage.usage()
+    parser = OptionParser(usage="usage: haraldscan.py [options]", version="%prog 0.32")
+    
+    parser.add_option("-w", "--write",
+                      action="store",
+                      type="string",
+                      dest="filename",
+                      default=str(time.time()),
+                      help="Outputs discovered device info to a file you specify (unspecified: filename is a timestamp.")
+    parser.add_option("-t", "--time",
+                      action="store",
+                      dest="numminutes",
+                      type="int",
+                      default=15,
+                      help="Shows number of devices found per time specified in mins (default is 15 mins)")
+    parser.add_option("--no-write",
+                      action="store_true", # optional because action defaults to "store"
+                      dest="nowrite",
+                      default=False,
+                      help="Disables writing discovered device info to a file")
+    parser.add_option("-b", "--build",
+                      action="store_true", # optional because action defaults to "store"
+                      dest="build",
+                      default=False,
+                      help="Builds MAC Addr database. Ignores all other options.")
+    parser.add_option("-s", "--service",
+                      action="store_true", # optional because action defaults to "store"
+                      dest="service",
+                      default=False,
+                      help="Does a service scan of all devices found and saves a file like a 'Unknown' device would.")
+    parser.add_option("-u", "--update",
+                      action="store_true", # optional because action defaults to "store"
+                      dest="update",
+                      default=False,
+                      help="Updates the MACLIST if there are updates and rebuilds the database (requires and Internet connection).")                  
+         
+    return parser
+    
+def handle_args(argv,c):
 
-    for o, a in opts:
-        if o in ("-b", "--build"):
+    parser = cmd_parse(argv)
+    
+    (options, args) = parser.parse_args()
+    
+    if options.numminutes > 0:
+        c.time_update(options.numminutes)       
+    if options.build is True:
+        c.minus_b()
+    if options.service is True:
+        c.minus_s()
+    if options.nowrite is False:
+        c.minus_w(options.filename)
+    if options.update is True:
+        if haraldupdate.check_now():
             c.minus_b()
-        elif o in ("-w", "--write"):
-            c.minus_w(a)
-        elif o in ("-u", "--update"):
-            if haraldupdate.check_now():
-                c.minus_b()
-            else:
-                sys.exit(0)
-        elif o in ("-h", "--help"):
-	        haraldusage.usage()
-        elif o in ("-s", "--service"):
-	        c.minus_s()
         else:
-            assert False, "unhandled option"
+            sys.exit(0)
 
     if haraldsql.chk_database() == False and c.buildb == False:
         haraldusage.no_db()
+
+if __name__ == "__main__":
+    parser = cmd_parse([""])
+    parser.print_help()
+

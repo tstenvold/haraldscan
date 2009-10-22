@@ -21,7 +21,7 @@
 #Version 3 along with Haraldscan.  If not, see <http://www.gnu.org/licenses/>.
 
 import haraldsql
-import haraldusage
+import haraldargs
 import time,sys,os
 
 def move(new_x, new_y):
@@ -58,11 +58,18 @@ def columns(col1, col2, col3, col4):
     right(20-len(col3[:20]))
     print col4[:25]
 
+def dev_per_interval(num_devices, time_start, time_interval):
+
+    if time.time() - time_start <= (time_interval * 60):
+        return num_devices
+    else:
+        return num_devices / (((time.time() - time_start) / 60) / time_interval)
+
 def init_screen(time_interval):
 
     clear()
     move(0,0)
-    title_bar(0,time.time(),time_interval)
+    title_bar(0,0,time_interval)
     savecursor()
 
 def clearwholescreen():
@@ -75,18 +82,20 @@ def clearwholescreen():
 
     move(0,0)
 
-def redraw_screen(scanner):
+def redraw_screen(scanner, cursor):
     clearwholescreen()
-    title_bar(scanner.num_entry, scanner.time_start, scanner.time_interval)
+    dev_interval = dev_per_interval(scanner.num_entry, scanner.time_start, scanner.time_interval)
+    title_bar(scanner.num_entry, dev_interval,scanner.time_interval)
+    write_screen(cursor)
+    
 
 #Displays the title of Harald Scan
-def title_bar(num_devices, time_start, time_interval):
+def title_bar(num_devices, dev_interval, time_interval):
     print " "*35,
     print "Harald Scan"
     print "#"*80
     print "Press Ctrl-C to Quit",
-    #TODO SQL select last TIME_INTERVAL by sql timestampt + count(*)
-    mid1 = "TBA Device per 15 mins"
+    mid1 = "%0.2f MAC(s) / %d mins" % (dev_interval, time_interval)
     mid2 = "%d device(s) found" % num_devices
     print " "*(30 - len(mid1)),
     print mid1,
@@ -106,5 +115,6 @@ def write_screen(cursor):
         for row in result:
             columns(row[1],row[2],row[3],row[4])
 
-if __name__ == '__main__':
-  haraldusage.usage()
+if __name__ == "__main__":
+    parser = haraldargs.cmd_parse([""])
+    parser.print_help()

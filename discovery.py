@@ -26,6 +26,7 @@ import deviceclass
 import sys,os
 import haraldsql
 import haraldusage
+import haraldargs
 
 class harald_discoverer(bluetooth.DeviceDiscoverer):
 
@@ -89,6 +90,7 @@ def unkown_mac(addr, name, devclass):
             fp.write("    service id:  %s \n\n"% svc["service-id"])
 
     fp.close() #closes file
-
-if __name__ == '__main__':
-  haraldusage.usage()
+    
+if __name__ == "__main__":
+    parser = haraldargs.cmd_parse([""])
+    parser.print_help()

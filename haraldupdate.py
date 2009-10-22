@@ -23,6 +23,7 @@
 import sys,os
 import urllib2
 import urllib
+import haraldargs
 
 
 def reporthook(*a): print a
@@ -67,5 +68,6 @@ def check_now():
     
     return False
 
-if __name__ == '__main__':
-  haraldusage.usage()
+if __name__ == "__main__":
+    parser = haraldargs.cmd_parse([""])
+    parser.print_help()

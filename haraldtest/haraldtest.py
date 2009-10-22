@@ -39,7 +39,10 @@ class Harald_main:
         self.buildb = False
         self.num_entry = 0
         self.time_start = time.time()
-        self.time_interval = 0.5
+        self.time_interval = 15
+    
+    def time_update(newtime):
+        self.time_interval = newtime
 
     def minus_w(self, filename):
         self.filename = filename
@@ -107,8 +110,8 @@ try:
                                 if num_devices > scanner.num_entry:
                                     scanner.num_entry = num_devices
 
-                                haraldcli.redraw_screen(scanner)
-                                haraldcli.write_screen(cursor)
+                                haraldcli.redraw_screen(scanner, cursor)
+                        time.sleep(10)
 
 #adapter not present
 except bluetooth.btcommon.BluetoothError:
