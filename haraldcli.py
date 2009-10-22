@@ -77,19 +77,27 @@ def clearwholescreen():
 
 def redraw_screen(scanner):
     clearwholescreen()
-    title_bar(scanner.num_entry, scanner.time_start, scanner.time_interval) 
-
+    title_bar(scanner.num_entry, scanner.time_start, scanner.time_interval)
+ 
+def percentage_time(num_devices,time_start,time_interval):
+	
+    if (time.time() - time_start) <= time_interval : 
+        return num_devices
+    else:
+	return (num_devices / (time.time()-time_start) * time_interval)		
 #TODO
 #add length of scan and dev per time option
 def title_bar(num_devices, time_start, time_interval):
     print " "*35,
     print "Harald Scan"
     print "#"*80
-    print "Press Ctrl-C to Quit",
-    time_past = ((time.time() - time_start) / 60)
-    mid = "%0.2f Device per 15 mins " % ((num_devices/time_past)*time_interval) + " %d device(s) found" % num_devices
-    print " "*(58 - len(mid)),
-    print mid
+    print "Press Ctrl-C to Quit",	
+    mid1 = "%0.2f Device per 15 mins" % percentage_time(num_devices,time_start,time_interval) 
+    mid2 = "%1d device(s) found" % num_devices
+    print " "*(30 - len(mid1)),
+    print mid1,
+    print " "*(26 - len(mid2)),
+    print mid2
     print "#"*80
     print ""
     columns("MAC","Name","Class","Vendor")
