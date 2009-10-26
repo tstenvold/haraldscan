@@ -28,7 +28,7 @@
 #Version 3 along with Haraldscan.  If not, see <http://www.gnu.org/licenses/>.
 
 import sqlite3
-import time,os
+import time,sys,os
 import haraldusage
 
 """Represents a mapping between prefix and vendor. Using this instead of a dictionary
@@ -48,10 +48,26 @@ def chk_database():
         else:
             return False
 
+"""Builds the database with MAC addresses"""
+def build_db(connection):
+
+    status = refresh_maclist(connection)
+    for k, v in status.iteritems():
+       print k, ': ', v
+    print "Database Built"
+
 """Opens Database and returns the cursor to it"""
 def open_database():
 
             con = sqlite3.connect('macinfo.db')
+            con.text_factory = str
+
+            return con
+
+"""Opens Database in memory and returns the cursor to it"""
+def open_database_mem():
+
+            con = sqlite3.connect(':memory:')
             con.text_factory = str
 
             return con

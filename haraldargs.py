@@ -24,71 +24,72 @@ import haraldusage
 import haraldsql
 import haraldupdate
 import sys, time
-import getopt
 from optparse import OptionParser
-
-
-def build_db(connection):
-
-    status = haraldsql.refresh_maclist(connection)
-    for k, v in status.iteritems():
-       print k, ': ', v
-    print "Database Built"
-    sys.exit(1)
 
 def cmd_parse(argv):
 
-    parser = OptionParser(usage="usage: haraldscan.py [options]", version="%prog 0.32")
-    
-    parser.add_option("-w", "--write",
-                      action="store",
-                      type="string",
-                      dest="filename",
-                      default=str(time.time()),
-                      help="Outputs discovered device info to a file you specify (unspecified: filename is a timestamp.")
+    parser = OptionParser(usage="usage: haraldscan.py [options]", version="%prog 0.4")
+
+    parser.add_option("-b", "--build",
+                      action="store_true",
+                      dest="build",
+                      default=False,
+                      help="Builds MAC Addr database. Ignores all other options.")
+    parser.add_option("-m","--memorydb",
+                      action="store_true",
+                      dest="memdb",
+                      default=False,
+                      help="Puts the database in Memory instead of a file on disk.")
+    parser.add_option("--no-service",
+                      action="store_true",
+                      dest="noservice",
+                      default=False,
+                      help="Disables service scans on \'Unknown\' devices.")
+    parser.add_option("--no-write",
+                      action="store_true",
+                      dest="nowrite",
+                      default=False,
+                      help="Disables writing discovered device info to a file.")
+    parser.add_option("-s", "--service",
+                      action="store_true",
+                      dest="service",
+                      default=False,
+                      help="Does a service scan of all devices found and saves a file like a 'Unknown' device would.")
     parser.add_option("-t", "--time",
                       action="store",
                       dest="numminutes",
                       type="int",
                       default=15,
                       help="Shows number of devices found per time specified in mins (default is 15 mins)")
-    parser.add_option("--no-write",
-                      action="store_true", # optional because action defaults to "store"
-                      dest="nowrite",
-                      default=False,
-                      help="Disables writing discovered device info to a file")
-    parser.add_option("-b", "--build",
-                      action="store_true", # optional because action defaults to "store"
-                      dest="build",
-                      default=False,
-                      help="Builds MAC Addr database. Ignores all other options.")
-    parser.add_option("-s", "--service",
-                      action="store_true", # optional because action defaults to "store"
-                      dest="service",
-                      default=False,
-                      help="Does a service scan of all devices found and saves a file like a 'Unknown' device would.")
     parser.add_option("-u", "--update",
-                      action="store_true", # optional because action defaults to "store"
+                      action="store_true",
                       dest="update",
                       default=False,
-                      help="Updates the MACLIST if there are updates and rebuilds the database (requires and Internet connection).")                  
-         
+                      help="Updates the MACLIST if there are updates and rebuilds the database (requires and Internet connection).")
+    parser.add_option("-w", "--write",
+                      action="store",
+                      type="string",
+                      dest="filename",
+                      default=str(time.time()),
+                      help="Outputs discovered device info to a file you specify (unspecified: filename is a timestamp.")
+
     return parser
-    
+
 def handle_args(argv,c):
 
     parser = cmd_parse(argv)
-    
+
     (options, args) = parser.parse_args()
-    
-    if options.numminutes > 0:
-        c.time_update(options.numminutes)       
-    if options.build is True:
-        c.minus_b()
-    if options.service is True:
-        c.minus_s()
+
+    c.service = options.service
+    c.time_interval = options.numminutes
+    c.buildb = options.build
+    c.noservice = options.noservice
+    c.memdb = options.memdb
+
     if options.nowrite is False:
         c.minus_w(options.filename)
+
     if options.update is True:
         if haraldupdate.check_now():
             c.minus_b()
@@ -101,4 +102,3 @@ def handle_args(argv,c):
 if __name__ == "__main__":
     parser = cmd_parse([""])
     parser.print_help()
-

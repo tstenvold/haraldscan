@@ -40,19 +40,12 @@ class Harald_main:
         self.num_entry = 0
         self.time_start = time.time()
         self.time_interval = 15
+        self.memdb = False
+        self.noservice = False
 
-    def time_update(self, newtime):
-        self.time_interval = newtime
-        
     def minus_w(self, filename):
         self.filename = filename
         self.write_file = True
-
-    def minus_b(self):
-        self.buildb = True
-
-    def minus_s(self):
-        self.service = True
 
     def cleanup(self, connection, cursor):
         haraldcli.clear()
@@ -60,24 +53,33 @@ class Harald_main:
         haraldsql.drop_dev_table(cursor)
         haraldsql.close_database(connection)
 
+def init_dbcon(scanner):
+    if scanner.memdb is False:
+        connection = haraldsql.open_database()
+    else:
+        connection = haraldsql.open_database_mem()
+        haraldsql.build_db(connection)
+
+    return connection
+
 
 #init main class and handle args
 scanner = Harald_main()
 haraldargs.handle_args(sys.argv[1:],scanner)
 
-#init the database and get connections
-connection = haraldsql.open_database()
+connection = init_dbcon(scanner)
 cursor = haraldsql.get_cursor(connection)
 haraldsql.setup_dev_table(connection)
 num_devices = 0
 
 if scanner.buildb:
-    haraldargs.build_db(connection)
+    haraldsql.build_db(connection)
+    sys.exit(0)
 
 #sets up the discoverer
 d = discovery.harald_discoverer()
 d.set_cursor(cursor)
-d.set_service(scanner.service)
+d.set_service(scanner.service, scanner.noservice)
 
 
 #init the screen
