@@ -35,6 +35,12 @@ def cmd_parse(argv):
                       dest="build",
                       default=False,
                       help="Builds MAC Addr database. Ignores all other options.")
+    parser.add_option("-f", "--flush",
+                      action="store",
+                      type="int",
+                      dest="flush",
+                      default=0,
+                      help="When db = size entered. Flush entries to a different database (useful if combined with -m)")                      
     parser.add_option("-m","--memorydb",
                       action="store_true",
                       dest="memdb",
@@ -86,6 +92,7 @@ def handle_args(argv,c):
     c.buildb = options.build
     c.noservice = options.noservice
     c.memdb = options.memdb
+    c.flush = options.flush
 
     if options.nowrite is False:
         c.minus_w(options.filename)

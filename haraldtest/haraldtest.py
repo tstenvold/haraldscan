@@ -42,6 +42,7 @@ class Harald_main:
         self.time_interval = 15
         self.memdb = False
         self.noservice = False
+        self.flush = 0
 
     def minus_w(self, filename):
         self.filename = filename
@@ -55,7 +56,7 @@ class Harald_main:
 
 def init_dbcon(scanner):
     if scanner.memdb is False:
-        connection = haraldsql.open_database()
+        connection = haraldsql.open_database('macinfo.db')
     else:
         connection = haraldsql.open_database_mem()
         haraldsql.build_db(connection)
@@ -66,10 +67,18 @@ def init_dbcon(scanner):
 scanner = Harald_main()
 haraldargs.handle_args(sys.argv[1:],scanner)
 
+
 connection = init_dbcon(scanner)
 cursor = haraldsql.get_cursor(connection)
+
+if scanner.flush > 0:
+    conflush = haraldsql.open_database('macinfo-%f.db' % time.time())
+    curflush = haraldsql.get_cursor(conflush)
+    haraldsql.setup_dev_table(conflush)
+    
 haraldsql.setup_dev_table(connection)
 num_devices = 0
+
 
 if scanner.buildb:
     haraldsql.build_db(connection)
@@ -112,17 +121,13 @@ try:
                                     scanner.num_entry = num_devices
 
                                 haraldcli.redraw_screen(scanner, cursor)
+                                
+                                if num_devices >= scanner.flush:
+                                    haraldsql.flushdb(cursor, curflush, scanner.flush)
+                                    haraldsql.commit_db(conflush)
+                                    haraldsql.commit_db(connection)
+                                    
                         time.sleep(10)
-
-#adapter not present
-except bluetooth.btcommon.BluetoothError:
-    scanner.cleanup(connection, cursor)
-    haraldusage.bluetooth_error()
-
-#some sql function failed
-except (sqlite3.OperationalError, sqlite3.IntegrityError):
-    scanner.cleanup(connection, cursor)
-    haraldusage.no_db()
 
 #ctrl-c caught and handled to exit gracefully
 except (KeyboardInterrupt, SystemExit):

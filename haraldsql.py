@@ -57,9 +57,9 @@ def build_db(connection):
     print "Database Built"
 
 """Opens Database and returns the cursor to it"""
-def open_database():
+def open_database(namedb):
 
-            con = sqlite3.connect('macinfo.db')
+            con = sqlite3.connect(namedb)
             con.text_factory = str
 
             return con
@@ -82,7 +82,24 @@ def close_database(connection):
     connection.commit()
     connection.close()
 
+"""Flushes entries from one table to another"""
+def flushdb(cursor, curflush, flushsize):
 
+    curtmp = cursor
+    query = 'SELECT * FROM devices'
+    query2 = 'INSERT INTO devices (macaddr, name, devclass, vendor, timestamp) VALUES (?, ?, ?, ?, ?);'
+    query3 = 'DELETE FROM devices'
+
+    try:
+        result = cursor.execute(query)
+        if result >= flushsize:
+            if result != None:
+                for row in result:
+                    curflush.execute(query2,(row[1],row[2],row[3],row[4],row[5]))
+        curtmp.execute(query3)
+    except sqlite3.IntegrityError:
+        raise
+    
 """Creates an SQLite database in an existing database.
 If any error occurs, no operation is performed"""
 def create_base_table(cursor):
@@ -120,7 +137,7 @@ def drop_dev_table(cursor):
 Returns true if the value is unique, false otherwise"""
 def insert_address_object(address, cursor):
 
-    query = 'INSERT INTO macinfo(prefix, vendor) VALUES (?, ?)'
+    query = 'INSERT INTO macinfo(prefix, vendor) VALUES (?, ?);'
 
     try:
         cursor.execute(query, (address.prefix, address.maker))
@@ -132,7 +149,7 @@ def insert_address_object(address, cursor):
 """Inserts a device into the device table in the existing database."""
 def insert_dev_table(cursor, addr, name, devclass, vendor):
 
-    query = 'INSERT INTO devices (macaddr, name, devclass, vendor, timestamp) VALUES (?, ?, ?, ?, ?)'
+    query = 'INSERT INTO devices (macaddr, name, devclass, vendor, timestamp) VALUES (?, ?, ?, ?, ?);'
 
     try:
         cursor.execute(query, (addr, name, devclass, vendor, time.time()))
@@ -192,7 +209,7 @@ def setup_dev_table(connection):
 def show_dev_table(cursor):
 
     try:
-        cursor.execute('SELECT * FROM devices WHERE id >= ((SELECT max(id) FROM devices) - 15)')
+        cursor.execute('SELECT * FROM devices WHERE id >= ((SELECT max(id) FROM devices) - 15);')
         return cursor
     except sqlite3.IntegrityError:
         return 0
@@ -220,7 +237,7 @@ def write_dev_table(cursor, filename):
 def number_devices(cursor):
 
     try:
-        cursor.execute('SELECT COUNT(*) FROM devices')
+        cursor.execute('SELECT COUNT(*) FROM devices;')
         row = cursor.fetchone()
         if row == None:
             return 0
@@ -232,7 +249,7 @@ def number_devices(cursor):
 """Returns the number of entries"""
 def device_exists(cursor, addr):
 
-    query = 'SELECT * FROM devices WHERE macaddr LIKE ?'
+    query = 'SELECT * FROM devices WHERE macaddr LIKE ?;'
 
     try:
         cursor.execute(query, (addr,))
@@ -248,7 +265,7 @@ def device_exists(cursor, addr):
 Take a full mac address and resolves it using it's first 3 bytes"""
 def mac_resolve(cursor, macaddr):
 
-    query = 'SELECT * FROM macinfo WHERE prefix LIKE ?'
+    query = 'SELECT * FROM macinfo WHERE prefix LIKE ?;'
 
     try:
         cursor.execute(query, [macaddr[0:8]])
