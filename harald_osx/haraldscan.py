@@ -38,16 +38,14 @@ class Harald_main:
         self.service = False
         self.buildb = False
         self.num_entry = 0
+        self.time_start = time.time()
+        self.time_interval = 15
+        self.memdb = False
+        self.noservice = False
 
     def minus_w(self, filename):
         self.filename = filename
         self.write_file = True
-
-    def minus_b(self):
-        self.buildb = True
-
-    def minus_s(self):
-        self.service = True
 
     def cleanup(self, connection, cursor):
         haraldcli.clear()
@@ -55,27 +53,36 @@ class Harald_main:
         haraldsql.drop_dev_table(cursor)
         haraldsql.close_database(connection)
 
+def init_dbcon(scanner):
+    if scanner.memdb is False:
+        connection = haraldsql.open_database()
+    else:
+        connection = haraldsql.open_database_mem()
+        haraldsql.build_db(connection)
+
+    return connection
 
 #init main class and handle args
 scanner = Harald_main()
-haraldargs.cmdargs(sys.argv[1:],scanner)
+haraldargs.handle_args(sys.argv[1:],scanner)
 
 #init the database and get connections
-connection = haraldsql.open_database()
+connection = init_dbcon(scanner)
 cursor = haraldsql.get_cursor(connection)
 haraldsql.setup_dev_table(connection)
 num_devices = 0
 
 if scanner.buildb:
-    haraldargs.build_db(connection)
+    haraldsql.build_db(connection)
+    sys.exit(0)
 
 #sets up the discoverer
 dosx = discovery.harald_lightblue()
 dosx.set_cursor(cursor)
-dosx.set_service(scanner.service)
+dosx.set_service(scanner.service, scanner.noservice)
 
 #init the screen
-haraldcli.init_screen()
+haraldcli.init_screen(scanner.time_interval)
 
 #start the main loop
 try:
@@ -92,8 +99,7 @@ try:
         if num_devices > scanner.num_entry:
             scanner.num_entry = num_devices
 
-        haraldcli.redraw_screen(scanner)
-        haraldcli.write_screen(cursor)
+        haraldcli.redraw_screen(scanner, cursor)
 
 #some sql function failed
 except (sqlite3.OperationalError, sqlite3.IntegrityError):
