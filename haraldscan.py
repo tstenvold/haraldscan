@@ -48,13 +48,18 @@ class Harald_main:
         self.filename = filename
         self.write_file = True
 
-    def cleanup(self, connection, cursor):
+    def cleanup(self, connection, cursor, conflush):
         haraldcli.clear()
         haraldcli.move(0,0)
         haraldsql.drop_dev_table(cursor)
         haraldsql.close_database(connection)
+        if self.flush is not 0:
+            haraldsql.close_database(conflush)
 
+
+"""Sets up the database(s) when required."""
 def init_dbcon(scanner):
+
     if scanner.memdb is False:
         connection = haraldsql.open_database('macinfo.db')
     else:
@@ -63,21 +68,29 @@ def init_dbcon(scanner):
 
     return connection
 
+"""Runs the commands needed to flush the devices to the other database"""
+def run_flushdb(con, conflush, cursor, curflush):
 
-#init main class and handle args
+        haraldsql.flushdb(cursor, curflush)
+        haraldsql.commit_db(conflush)
+        haraldsql.commit_db(connection)
+
+"""Sets up the scanner and processes the args"""
 scanner = Harald_main()
 haraldargs.handle_args(sys.argv[1:],scanner)
 
+"""Initializes the db's connections'"""
 connection = init_dbcon(scanner)
 cursor = haraldsql.get_cursor(connection)
 
-if scanner.flush > 0:
+if scanner.flush is not 0:
     conflush = haraldsql.open_database('macinfo-%f.db' % time.time())
     curflush = haraldsql.get_cursor(conflush)
     haraldsql.setup_dev_table(conflush)
-    
+
 haraldsql.setup_dev_table(connection)
 num_devices = 0
+num_flushed = 0
 
 if scanner.buildb:
     haraldsql.build_db(connection)
@@ -105,18 +118,16 @@ try:
 
         haraldsql.commit_db(connection)
         num_devices = haraldsql.number_devices(cursor)
+        scanner.num_entry = num_devices + num_flushed
+
+        haraldcli.redraw_screen(scanner, cursor)
 
         if scanner.write_file and num_devices > scanner.num_entry:
             haraldsql.write_dev_table(cursor, scanner.filename)
 
-        if num_devices > scanner.num_entry:
-            scanner.num_entry = num_devices
-
-        haraldcli.redraw_screen(scanner, cursor)
-        if num_devices >= scanner.flush:
-            haraldsql.flushdb(cursor, curflush, scanner.flush)
-            haraldsql.commit_db(conflush)
-            haraldsql.commit_db(connection)
+        if scanner.flush is not 0 and num_devices >= scanner.flush:
+            num_flushed += num_devices
+            run_flushdb(connection, conflush, cursor, curflush)
 
 #adapter not present
 except bluetooth.btcommon.BluetoothError:
@@ -130,4 +141,6 @@ except (sqlite3.OperationalError, sqlite3.IntegrityError):
 
 #ctrl-c caught and handled to exit gracefully
 except (KeyboardInterrupt, SystemExit):
-    scanner.cleanup(connection, cursor)
+    if scanner.flush is not 0:
+        run_flushdb(connection, conflush, cursor, curflush)
+    scanner.cleanup(connection, cursor, conflush)

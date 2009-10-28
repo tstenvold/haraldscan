@@ -83,23 +83,21 @@ def close_database(connection):
     connection.close()
 
 """Flushes entries from one table to another"""
-def flushdb(cursor, curflush, flushsize):
+def flushdb(cursor, curflush):
 
-    curtmp = cursor
     query = 'SELECT * FROM devices'
     query2 = 'INSERT INTO devices (macaddr, name, devclass, vendor, timestamp) VALUES (?, ?, ?, ?, ?);'
     query3 = 'DELETE FROM devices'
 
     try:
         result = cursor.execute(query)
-        if result >= flushsize:
-            if result != None:
-                for row in result:
-                    curflush.execute(query2,(row[1],row[2],row[3],row[4],row[5]))
-        curtmp.execute(query3)
+        if result != None:
+            for row in result:
+                curflush.execute(query2,(row[1],row[2],row[3],row[4],row[5]))
+        cursor.execute(query3)
     except sqlite3.IntegrityError:
         raise
-    
+
 """Creates an SQLite database in an existing database.
 If any error occurs, no operation is performed"""
 def create_base_table(cursor):

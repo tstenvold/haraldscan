@@ -48,13 +48,16 @@ class Harald_main:
         self.filename = filename
         self.write_file = True
 
-    def cleanup(self, connection, cursor):
+    def cleanup(self, connection, cursor, conflush):
         haraldcli.clear()
         haraldcli.move(0,0)
         haraldsql.drop_dev_table(cursor)
         haraldsql.close_database(connection)
+        if self.flush is not 0:
+            haraldsql.close_database(conflush)
 
 def init_dbcon(scanner):
+
     if scanner.memdb is False:
         connection = haraldsql.open_database('macinfo.db')
     else:
@@ -62,6 +65,12 @@ def init_dbcon(scanner):
         haraldsql.build_db(connection)
 
     return connection
+
+def run_flushdb(con, conflush, cursor, curflush):
+
+        haraldsql.flushdb(cursor, curflush)
+        haraldsql.commit_db(conflush)
+        haraldsql.commit_db(connection)
 
 #init main class and handle args
 scanner = Harald_main()
@@ -71,14 +80,14 @@ haraldargs.handle_args(sys.argv[1:],scanner)
 connection = init_dbcon(scanner)
 cursor = haraldsql.get_cursor(connection)
 
-if scanner.flush > 0:
+if scanner.flush is not 0:
     conflush = haraldsql.open_database('macinfo-%f.db' % time.time())
     curflush = haraldsql.get_cursor(conflush)
     haraldsql.setup_dev_table(conflush)
-    
+
 haraldsql.setup_dev_table(connection)
 num_devices = 0
-
+num_flushed = 0
 
 if scanner.buildb:
     haraldsql.build_db(connection)
@@ -97,11 +106,11 @@ haraldcli.init_screen(scanner.time_interval)
 try:
     while True:
 
-        for i in range(0,100):
-            for a in range(0,100):
-                for b in range(0,100):
-                    for c in range(0,100):
-                        for d in range(0,100):
+        for i in range(0,1):
+            for a in range(0,1):
+                for b in range(0,1):
+                    for c in range(0,25):
+                        for d in range(0,50):
                             for e in range(0,100):
                                 addr = "%02d:%02d:%02d:%02d:%02d:%02d" % (i,a,b,c,d,e)
                                 name = "%02dMACNAME%02d" % (b,d)
@@ -113,22 +122,21 @@ try:
 
                                 haraldsql.commit_db(connection)
                                 num_devices = haraldsql.number_devices(cursor)
+                                scanner.num_entry = num_devices + num_flushed
+
+                                haraldcli.redraw_screen(scanner, cursor)
 
                                 if scanner.write_file and num_devices > scanner.num_entry:
                                     haraldsql.write_dev_table(cursor, scanner.filename)
 
-                                if num_devices > scanner.num_entry:
-                                    scanner.num_entry = num_devices
+                                if scanner.flush is not 0 and num_devices >= scanner.flush:
+                                    num_flushed += num_devices
+                                    run_flushdb(connection, conflush, cursor, curflush)
 
-                                haraldcli.redraw_screen(scanner, cursor)
-                                
-                                if num_devices >= scanner.flush:
-                                    haraldsql.flushdb(cursor, curflush, scanner.flush)
-                                    haraldsql.commit_db(conflush)
-                                    haraldsql.commit_db(connection)
-                                    
-                        time.sleep(10)
+                        time.sleep(3)
 
 #ctrl-c caught and handled to exit gracefully
 except (KeyboardInterrupt, SystemExit):
-    scanner.cleanup(connection, cursor)
+    if scanner.flush is not 0:
+        run_flushdb(connection, conflush, cursor, curflush)
+    scanner.cleanup(connection, cursor, conflush)

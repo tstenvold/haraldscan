@@ -20,27 +20,40 @@ Requirements
 GNU/Linux
     Python 2.6
     Pybluez
-    PySQLite2
-
 Mac OS X
     Python 2.5.4
     Lightblue
-    PySQLite2
+    X code
 
 
 Installation
 ============
 1. Unpack to a directory
-2. Run 'python haraldscan -b' to build database
+2. Run 'python haraldscan.py -b' to build database
 3. You are ready to go
 
 Usage
 ======
 
-usage: haraldscan.py [options]
+Usage: haraldscan.py [options]
+
 Options:
-	-b --build	: Builds the MAC address database. Ignores all other options and runs itself
-	-h --help	: Shows this menu
-	-u --update : Checks for Updates to MACLIST and Rebuilds Database if updated
-	-s --service: Does a service scan of all devices found and saves a file like a 'Unknown' vendor device would.
-	-w --write file	: Writes the devices found to this file. Overwrites any existing file
+  --version             show program's version number and exit
+  -h, --help            show this help message and exit
+  -b, --build           Builds MAC Addr database. Ignores all other options
+  -f FLUSHNUM, --flush=FLUSHNUM
+                        When db = size entered. Flush entries to a different
+                        database (useful if combined with -m)
+  -m, --memorydb        Puts the database in Memory instead of a file on disk
+  --no-service          Disables service scans on 'Unknown' devices
+  --no-write            Disables writing discovered device info to a file
+  -s, --service         Does a service scan of all devices found and saves a
+                        file like a 'Unknown' device would
+  -t NMINUTES, --time=NMINUTES
+                        Shows number of devices found per time specified in
+                        mins (default is 15 mins)
+  -u, --update          Updates the MACLIST if there are updates and rebuilds
+                        the database (requires and Internet connection)
+  -w FILENAME, --write=FILENAME
+                        Outputs discovered device info to a file you specify
+                        (unspecified: filename is a timestamp)
