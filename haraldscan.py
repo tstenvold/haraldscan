@@ -83,6 +83,7 @@ haraldargs.handle_args(sys.argv[1:],scanner)
 connection = init_dbcon(scanner)
 cursor = haraldsql.get_cursor(connection)
 
+conflush = 0
 if scanner.flush is not 0:
     conflush = haraldsql.open_database('macinfo-%f.db' % time.time())
     curflush = haraldsql.get_cursor(conflush)
@@ -131,12 +132,12 @@ try:
 
 #adapter not present
 except bluetooth.btcommon.BluetoothError:
-    scanner.cleanup(connection, cursor)
+    scanner.cleanup(connection, cursor, conflush)
     haraldusage.bluetooth_error()
 
 #some sql function failed
 except (sqlite3.OperationalError, sqlite3.IntegrityError):
-    scanner.cleanup(connection, cursor)
+    scanner.cleanup(connection, cursor, conflush)
     haraldusage.no_db()
 
 #ctrl-c caught and handled to exit gracefully
