@@ -150,7 +150,7 @@ def insert_dev_table(cursor, addr, name, devclass, vendor):
     query = 'INSERT INTO devices (macaddr, name, devclass, vendor, timestamp) VALUES (?, ?, ?, ?, ?);'
 
     try:
-        cursor.execute(query, (addr, name, devclass, vendor, time.time()))
+        cursor.execute(query, (addr, name.rstrip('\n'), devclass.rstrip('\n'), vendor.rstrip('\n'), time.time()))
     except sqlite3.IntegrityError:
         pass
 
