@@ -34,7 +34,7 @@ class harald_lightblue():
     def set_cursor(self, cursor):
         self.cursor = cursor
 
-    def set_service(self, service):
+    def set_service(self, service, noservice):
         self.service = service
         self.noservice = noservice
 
