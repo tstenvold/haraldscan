@@ -1,6 +1,6 @@
 README
 
-November 2009
+December 2009
 Author:
     Terence Stenvold <tstenvold@gmail.com>
 Contributors:
@@ -18,8 +18,9 @@ may be an automatic function but right now I request you email me these files @ 
 Installation
 ============
 1. Unpack to a directory
-2. Run './haraldscan -b' to build database
-3. You are ready to go
+2. May need to chmod +x haraldscan (as root)
+3. Run './haraldscan -b' to build database
+4. You are ready to go
 
 Usage
 ======
