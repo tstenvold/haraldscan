@@ -40,7 +40,7 @@ def clear():
   print '\033[2J'
 
 def clrtoeol():
-  print '\033[K'
+  print '\033[2K'
 
 def savecursor():
 	sys.stdout.write("\x1b7")
