@@ -35,6 +35,8 @@ def right(count):
 def moveUp(lines):
   print '\033[' + str(lines) + 'A'
 
+def moveDown(lines):
+  print '\033[' + str(lines) + 'B'
 
 def clear():
   print '\033[2J'
@@ -76,8 +78,7 @@ def clearwholescreen():
 
     move(0,0)
 
-    for i in range(0,25):
-        move(0,i)
+    for i in range(0, 25):
         clrtoeol()
 
     move(0,0)
@@ -92,7 +93,7 @@ def redraw_screen(scanner, cursor):
 #Displays the title of Harald Scan
 def title_bar(num_devices, dev_interval, time_interval):
     print " "*35,
-    print "Harald Scan"
+    print '\033[34m' + "Harald Scan" + '\033[0m'
     print "#"*80
     print "Press Ctrl-C to Quit",
     mid1 = "%0.2f MAC(s) / %d mins" % (dev_interval, time_interval)

@@ -80,6 +80,7 @@ haraldargs.handle_args(sys.argv[1:],scanner)
 connection = init_dbcon(scanner)
 cursor = haraldsql.get_cursor(connection)
 
+conflush = 0
 if scanner.flush is not 0:
     conflush = haraldsql.open_database('macinfo-%f.db' % time.time())
     curflush = haraldsql.get_cursor(conflush)
@@ -114,6 +115,8 @@ try:
                             for e in range(0,100):
                                 addr = "%02d:%02d:%02d:%02d:%02d:%02d" % (i,a,b,c,d,e)
                                 name = "%02dMACNAME%02d" % (b,d)
+                                if (e % 2) == 0:
+                                    name = "%02dMACNAME!!!!!%02d" % (b,d)
                                 device_class = 0x420204
                                 devclass = deviceclass.majordev_class(device_class)
                                 devman = haraldsql.mac_resolve(cursor, addr)
