@@ -1,6 +1,6 @@
 README
 
-July 2009
+November 2009
 Author:
     Terence Stenvold <tstenvold@gmail.com>
 Contributors:
@@ -14,28 +14,17 @@ same directory with the first 6 characters from the MAC address with all the inf
 device. This will allow me to add it to the MACLIST if I am able to determine who the Vendor is. Eventually this
 may be an automatic function but right now I request you email me these files @  tstenvold@gmail.com
 
-Requirements
-============
-
-GNU/Linux
-    Python 2.6
-    Pybluez
-Mac OS X
-    Python 2.5.4
-    Lightblue
-    X code
-
 
 Installation
 ============
 1. Unpack to a directory
-2. Run 'python haraldscan.py -b' to build database
+2. Run './haraldscan -b' to build database
 3. You are ready to go
 
 Usage
 ======
 
-Usage: haraldscan.py [options]
+Usage: haraldscan [options]
 
 Options:
   --version             show program's version number and exit

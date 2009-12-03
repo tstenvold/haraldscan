@@ -28,7 +28,7 @@ from optparse import OptionParser
 
 def cmd_parse(argv):
 
-    parser = OptionParser(usage="usage: haraldscan.py [options]", version="%prog 0.4")
+    parser = OptionParser(usage="usage: haraldscan.py [options]", version="%prog 0.402")
 
     parser.add_option("-b", "--build",
                       action="store_true",
