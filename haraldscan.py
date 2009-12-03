@@ -120,7 +120,7 @@ try:
         haraldsql.commit_db(connection)
         num_devices = haraldsql.number_devices(cursor)
 		
-	    if scanner.write_file and (num_devices + num_flushed) > scanner.num_entry:
+        if scanner.write_file and (num_devices + num_flushed) > scanner.num_entry:
             haraldsql.write_dev_table(cursor, scanner.filename)
 			
         scanner.num_entry = num_devices + num_flushed
