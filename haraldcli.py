@@ -93,7 +93,7 @@ def redraw_screen(scanner, cursor):
 #Displays the title of Harald Scan
 def title_bar(num_devices, dev_interval, time_interval):
     print " "*35,
-    print '\033[34m' + "Harald Scan" + '\033[0m'
+    print '\033[34;1m' + "Harald Scan" + '\033[0m'
     print "#"*80
     print "Press Ctrl-C to Quit",
     mid1 = "%0.2f MAC(s) / %d mins" % (dev_interval, time_interval)
