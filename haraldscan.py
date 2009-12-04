@@ -20,13 +20,8 @@
 #You should have received a copy of the GNU General Public License
 #Version 3 along with Haraldscan.  If not, see <http://www.gnu.org/licenses/>.
 
+from haraldmodules import *
 import sqlite3
-import deviceclass
-import discovery
-import haraldsql
-import haraldcli
-import haraldargs
-import haraldusage
 import time,sys,os
 import bluetooth
 
