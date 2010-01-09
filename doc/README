@@ -1,6 +1,6 @@
 README
 
-December 2009
+January 2010
 Author:
     Terence Stenvold <tstenvold@gmail.com>
 Contributors:
@@ -25,7 +25,7 @@ Installation
 Usage
 ======
 
-Usage: haraldscan [options]
+Usage: ./haraldscan [options]
 
 Options:
   --version             show program's version number and exit
