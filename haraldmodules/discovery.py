@@ -49,7 +49,7 @@ class harald_discoverer(bluetooth.DeviceDiscoverer):
             if ((devman == 'Unknown' or self.service) \
             and not haraldsql.device_exists(self.cursor, addr)):
                 unkown_mac(addr, name, devclass)
-
+        
         haraldsql.insert_dev_table(self.cursor, addr, name, devclass, devman)
 
     def inquiry_complete(self):

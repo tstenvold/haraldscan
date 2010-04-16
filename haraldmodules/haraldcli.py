@@ -114,7 +114,7 @@ def write_screen(cursor):
 
     if result != None:
         for row in result:
-            columns(row[1],row[2],row[3],row[4])
+            columns(row[1],row[2].decode('UTF-8', 'replace'),row[3],row[4])
 
 if __name__ == "__main__":
     parser = haraldargs.cmd_parse([""])

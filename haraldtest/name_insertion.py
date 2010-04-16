@@ -15,8 +15,8 @@ import bluetooth
 class Harald_main:
 
     def __init__(self):
-        self.write_file = True
-        self.filename = "name_insert"
+        self.write_file = False
+        self.filename = ""
         self.service = False
         self.buildb = False
         self.num_entry = 0
@@ -85,8 +85,8 @@ d.set_service(scanner.service, scanner.noservice)
 #init the screen
 haraldcli.init_screen(scanner.time_interval)
 names = ["ԱԵՈՊԼՎ՞ՉՅ","ঘণধছরমফষ", "あけちねと","サッダソヅニ","ضثسعغب", "你好我的狗是朋友",
-        + "ԱԵՈՊԼՎ՞ՉՅ","ঘণধছরমফষ", "あけちねと","サッダソヅニ","ضثسعغب", "你好我的狗是朋友",
-        + "ԱԵՈՊԼՎ՞ՉՅ","ঘণধছরমফষ", "あけちねと","サッダソヅニ","ضثسعغب", "你好我的狗是朋友"]
+        "ԱԵՈՊԼՎ՞ՉՅ","ঘণধছরমফষ", "あけちねと","サッダソヅニ","ضثسعغب", "你好我的狗是朋友",
+        "ԱԵՈՊԼՎ՞ՉՅ","ঘণধছরমফষ", "あけちねと","サッダソヅニ","ضثسعغب", "你好我的狗是朋友"]
 #start the main loop
 try:
     i = 0
