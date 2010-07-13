@@ -40,7 +40,7 @@ class Harald_main:
         self.flush = 0
 
     def minus_w(self, filename):
-        self.filename = filename
+        self.filename = filename + ".xml"
         self.write_file = True
 
     def cleanup(self, connection, cursor, conflush):
@@ -114,10 +114,10 @@ try:
 
         haraldsql.commit_db(connection)
         num_devices = haraldsql.number_devices(cursor)
-		
+
         if scanner.write_file and (num_devices + num_flushed) > scanner.num_entry:
             haraldsql.write_dev_table(cursor, scanner.filename)
-			
+
         scanner.num_entry = num_devices + num_flushed
 
         haraldcli.redraw_screen(scanner, cursor)

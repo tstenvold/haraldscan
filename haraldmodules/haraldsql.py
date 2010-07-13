@@ -219,7 +219,7 @@ def write_dev_table(cursor, filename):
     if not os.path.isfile(filename):
         fp = open(filename, 'wb')
         fp.write("<?xml version=\"1.0\"?>\n")
-    else
+    else:
         fp = open(filename, 'wb')
 
     if fp == None:
