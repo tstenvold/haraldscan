@@ -19,7 +19,7 @@ Installation
 ============
 1. Unpack to a directory
 2. May need to chmod +x haraldscan (as root)
-3. Run './haraldscan -b' to build database
+3. Go to Directory and Run './haraldscan -b' to build database
 4. You are ready to go
 
 Usage
