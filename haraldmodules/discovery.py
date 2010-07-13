@@ -27,7 +27,8 @@ import sys,os
 import haraldsql
 import haraldusage
 import haraldargs
-
+
+
 class harald_discoverer(bluetooth.DeviceDiscoverer):
 
     def set_cursor(self, cursor):
@@ -73,23 +74,38 @@ def unkown_mac(addr, name, devclass):
 
     new_services = service_discover(addr)
 
-    fp = open("%s" % addr[0:8] , "ab+")
+    if not os.path.isfile("%s" % addr[0:8] + ".xml"):
+        fp = open("%s" % addr[0:8] + ".xml" , "ab+")
+        fp.write("<?xml version=\"1.0\"?>\n")
+    else:
+        fp = open("%s" % addr[0:8] + ".xml" , "ab+")
+
 
     if "No Services" in new_services:
-        fp.write(new_services)
-        fp.write("\nDevice Address: %s Name: %s Class: %s \n\n" % (addr[0:8],name,devclass))
+        fp.write("<device>\n")
+        fp.write("\t<name>%s</name>\n" % name)
+        fp.write("\t<address>%s</address>\n" % addr[0:8])
+        fp.write("\t<class>%s</class>\n" % devclass)
+        fp.write("\t<services>" + new_services + "</services>\n")
+        fp.write("</device>")
     else:
-        fp.write("Device Address: %s Name: %s Class: %s \n\n" % (addr[0:8],name,devclass))
+        fp.write("\t<device>\n")
+        fp.write("\t<name>%s</name>\n" % name)
+        fp.write("\t<address>%s</address>\n" % addr[0:8])
+        fp.write("\t<class>%s</class>\n" % devclass)
+        fp.write("\t<services>\n")
         for svc in new_services: 		#writes each new service to the file
-            fp.write("Service Name: %s\n"    % svc["name"])
-            fp.write("    Host:        %s\n" % svc["host"])
-            fp.write("    Description: %s\n" % svc["description"])
-            fp.write("    Provided By: %s\n" % svc["provider"])
-            fp.write("    Protocol:    %s\n" % svc["protocol"])
-            fp.write("    channel/PSM: %s\n" % svc["port"])
-            fp.write("    svc classes: %s\n"% svc["service-classes"])
-            fp.write("    profiles:    %s\n"% svc["profiles"])
-            fp.write("    service id:  %s \n\n"% svc["service-id"])
+            fp.write("\t\t<servicename>%s</servicename>\n" % svc["name"])
+            fp.write("\t\t<host>%s</host>\n" % svc["host"])
+            fp.write("\t\t<description>%s</description>\n" % svc["description"])
+            fp.write("\t\t<provider>%s</provider>\n" % svc["provider"])
+            fp.write("\t\t<protocol>%s</protocol>\n" % svc["protocol"])
+            fp.write("\t\t<channel>%s</channel>\n" % svc["port"])
+            fp.write("\t\t<svcclasses>%s</svcclasses>\n"% svc["service-classes"])
+            fp.write("\t\t<profile>%s</profile>\n"% svc["profiles"])
+            fp.write("\t\t<svcid>%s</svcid>\n"% svc["service-id"])
+        fp.write("\t</services>\n")
+        fp.write("</device>")
 
     fp.close() #closes file
 

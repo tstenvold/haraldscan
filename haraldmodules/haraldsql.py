@@ -216,7 +216,11 @@ def show_dev_table(cursor):
 by the parameter passed in"""
 def write_dev_table(cursor, filename):
 
-    fp = open(filename, 'wb')
+    if not os.path.isfile(filename):
+        fp = open(filename, 'wb')
+        fp.write("<?xml version=\"1.0\"?>\n")
+    else
+        fp = open(filename, 'wb')
 
     if fp == None:
         print "Could not open File"
@@ -224,11 +228,17 @@ def write_dev_table(cursor, filename):
 
     results = show_dev_table(cursor)
 
-    for row in results:
-        r = "Mac: %s\nName: %s\nClass: %s\nVendor: %s\n\n" % (row[1],row[2],row[3],row[4])
-        fp.write(r)
+    fp.write("<devices>\n")
 
-    fp.write("\n")
+    for row in results:
+        fp.write("\t<device>\n")
+        fp.write("\t<name>%s</name>\n" % row[1])
+        fp.write("\t<address>%s</address>\n" % row[2])
+        fp.write("\t<class>%s</class>\n" % row[3])
+        fp.write("\t<vendor>%s</vendor>\n" % row[4])
+        fp.write("\t</device>\n")
+
+    fp.write("<devices>\n")
     fp.close()
 
 """Returns the number of entries"""
