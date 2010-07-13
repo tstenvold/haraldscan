@@ -238,7 +238,7 @@ def write_dev_table(cursor, filename):
         fp.write("\t<vendor>%s</vendor>\n" % row[4])
         fp.write("\t</device>\n")
 
-    fp.write("<devices>\n")
+    fp.write("</devices>\n")
     fp.close()
 
 """Returns the number of entries"""
