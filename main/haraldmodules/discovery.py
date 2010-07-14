@@ -50,7 +50,7 @@ class harald_discoverer(bluetooth.DeviceDiscoverer):
             if ((devman == 'Unknown' or self.service) \
             and not haraldsql.device_exists(self.cursor, addr)):
                 unkown_mac(addr, name, devclass)
-        
+
         haraldsql.insert_dev_table(self.cursor, addr, name, devclass, devman)
 
     def inquiry_complete(self):
@@ -74,12 +74,8 @@ def unkown_mac(addr, name, devclass):
 
     new_services = service_discover(addr)
 
-    if not os.path.isfile("%s" % addr[0:8] + ".xml"):
-        fp = open("%s" % addr[0:8] + ".xml" , "ab+")
-        fp.write("<?xml version=\"1.0\"?>\n")
-    else:
-        fp = open("%s" % addr[0:8] + ".xml" , "ab+")
-
+    fp = open(addr + ".xml" , "wb+")
+    fp.write("<?xml version=\"1.0\"?>\n")
 
     if "No Services" in new_services:
         fp.write("<device>\n")
