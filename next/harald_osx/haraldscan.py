@@ -40,7 +40,7 @@ class Harald_main:
         self.flush = 0
 
     def minus_w(self, filename):
-        self.filename = filename
+        self.filename = filename + ".xml"
         self.write_file = True
 
     def cleanup(self, connection, cursor, conflush):
@@ -114,7 +114,7 @@ try:
         scanner.num_entry = num_devices + num_flushed
 
         haraldcli.redraw_screen(scanner, cursor)
-        
+
         if scanner.flush is not 0 and num_devices >= scanner.flush:
             num_flushed += num_devices
             run_flushdb(connection, conflush, cursor, curflush)
