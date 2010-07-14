@@ -1,0 +1,48 @@
+README
+
+January 2010
+Author:
+    Terence Stenvold <tstenvold@gmail.com>
+Contributors:
+    Carson Farrell
+
+Special Notes
+=============
+The goal of this project is really to gain as many MAC address mapped to device vendors as possible
+If you see an entry on the CLI stating that the Vendor is 'Unknown". Harald Scan probably created a file in the
+same directory with the first 6 characters from the MAC address with all the information it could gain from the
+device. This will allow me to add it to the MACLIST if I am able to determine who the Vendor is. Eventually this
+may be an automatic function but right now I request you email me these files @  tstenvold@gmail.com
+
+
+Installation
+============
+1. Unpack to a directory
+3. Run 'python haraldscan.py -b' to build database
+4. You are ready to go
+
+Usage
+======
+
+Usage: python haraldscan.py [options]
+
+Options:
+  --version             show program's version number and exit
+  -h, --help            show this help message and exit
+  -b, --build           Builds MAC Addr database. Ignores all other options
+  -f FLUSHNUM, --flush=FLUSHNUM
+                        When db = size entered. Flush entries to a different
+                        database (useful if combined with -m)
+  -m, --memorydb        Puts the database in Memory instead of a file on disk
+  --no-service          Disables service scans on 'Unknown' devices
+  --no-write            Disables writing discovered device info to a file
+  -s, --service         Does a service scan of all devices found and saves a
+                        file like a 'Unknown' device would
+  -t NMINUTES, --time=NMINUTES
+                        Shows number of devices found per time specified in
+                        mins (default is 15 mins)
+  -u, --update          Updates the MACLIST if there are updates and rebuilds
+                        the database (requires and Internet connection)
+  -w FILENAME, --write=FILENAME
+                        Outputs discovered device info to a file you specify
+                        (unspecified: filename is a timestamp)
