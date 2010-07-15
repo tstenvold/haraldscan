@@ -229,8 +229,8 @@ def write_dev_table(cursor, filename):
 
     for row in results:
         fp.write("\t<device>\n")
-        fp.write("\t<name>%s</name>\n" % row[1])
-        fp.write("\t<address>%s</address>\n" % row[2])
+        fp.write("\t<address>%s</address>\n" % row[1])
+        fp.write("\t<name>%s</name>\n" % row[2])
         fp.write("\t<class>%s</class>\n" % row[3])
         fp.write("\t<vendor>%s</vendor>\n" % row[4])
         fp.write("\t</device>\n")
