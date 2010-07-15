@@ -216,11 +216,8 @@ def show_dev_table(cursor):
 by the parameter passed in"""
 def write_dev_table(cursor, filename):
 
-    if not os.path.isfile(filename):
-        fp = open(filename, 'wb')
-        fp.write("<?xml version=\"1.0\"?>\n")
-    else:
-        fp = open(filename, 'wb')
+    fp = open(filename, 'wb')
+    fp.write("<?xml version=\"1.0\"?>\n")
 
     if fp == None:
         print "Could not open File"
