@@ -3,7 +3,7 @@
 # Authors:
 #   Carson Farrell
 #   Terence Stenvold <tstenvold@gmail.com>
-# Date: June 26th 2009
+# Date: July 2010
 #
 # Written to read the MACINFO file into an sqlite3 database called macinfo.db for
 # the haraldscanner program to work with. This script assumes that data given to it
