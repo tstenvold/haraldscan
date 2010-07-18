@@ -25,7 +25,7 @@
 #Version 3 along with Haraldscan.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import haraldargs
+import haraldmodules.haraldargs
 
 #Major classes for Bluetooth
 def majordev_class(device_class):
@@ -188,7 +188,8 @@ def service_class(service_class):
                         (22, "Telephony"),
                         (23, "Information"))
 
-    serv_class = ''
+    serv_class = ''
+
     for bitpos, classname in service_classes:
         if service_class & (1 << (bitpos-1)):
             serv_class = classname

@@ -1,5 +1,4 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
+#!/usr/bin/python3
 # Authors:
 #   Carson Farrell
 #   Terence Stenvold <tstenvold@gmail.com>
@@ -29,15 +28,15 @@
 
 import sqlite3
 import time,sys,os
-import haraldusage
+import haraldmodules.haraldusage
 
 """Represents a mapping between prefix and vendor. Using this instead of a dictionary
 so that validation business logic can be placed in later if needed."""
 class MacAddress:
 
     def __init__(self, prefix, maker):
-        self.prefix = unicode(prefix,"utf-8")
-        self.maker = unicode(maker,"utf-8")
+        self.prefix = str(prefix,"utf-8")
+        self.maker = str(maker,"utf-8")
 
 
 """Checks if Database exists"""
@@ -52,9 +51,9 @@ def chk_database():
 def build_db(connection):
 
     status = refresh_maclist(connection)
-    for k, v in status.iteritems():
-       print k, ': ', v
-    print "Database Built"
+    for k, v in status.items():
+       print((k + ': ' + v))
+    print ("Database Built")
 
 """Opens Database and returns the cursor to it"""
 def open_database(namedb):
@@ -167,7 +166,7 @@ def refresh_maclist(connection):
     fp = open('MACLIST', 'rb')
 
     if fp == None:
-        print "Could not Open File"
+        print ("Could not Open File")
         system.exit(1)
 
     try:
@@ -223,7 +222,7 @@ def write_dev_table(cursor, filename):
         fp = open(filename, 'wb')
 
     if fp == None:
-        print "Could not open File"
+        print("Could not open File")
         sys.exit(1)
 
     results = show_dev_table(cursor)

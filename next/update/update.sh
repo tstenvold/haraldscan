@@ -6,6 +6,5 @@ cp ../../main/MACLIST .
 cat *.xml | grep '[0-9ABCDEF]\{2\}:[0-9ABCDEF]\{2\}:[0-9ABCDEF]\{2\}:[0-9ABCDEF]\{2\}:[0-9ABCDEF]\{2\}:[0-9ABCDEF]\{2\}' | cut -d ">" -f 2 | cut -d ":" -f 1,2,3 > macin
 python newmac.py
 rm macin
-cp -f MACLIST ../MACLIST
 cp -f MACLIST ../../main/MACLIST
 rm MACLIST

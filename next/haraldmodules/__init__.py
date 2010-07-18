@@ -1,1 +1,1 @@
-__all__=["haraldargs", "haraldcli", "haraldupdate", "haraldsql", "haraldusage", "deviceclass", "discovery"]
+__all__=["haraldargs", "haraldcli", "haraldupdate", "haraldsql", "deviceclass", "discovery", "haraldusage"]

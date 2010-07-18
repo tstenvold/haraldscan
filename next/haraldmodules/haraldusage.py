@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 # haraldusage.py
 # July 2009
 # Terence Stenvold <tstenvold@gmail.com>
@@ -21,21 +20,21 @@
 #Version 3 along with Haraldscan.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys
-import haraldargs
+import haraldmodules.haraldargs
 
 def os_error():
 
-    print "Error:\n\tYour Operating System is not supported or undetectable\n"
+    print("Error:\n\tYour Operating System is not supported or undetectable\n")
     sys.exit(1)
 
 def bluetooth_error():
 
-    print "Error:\n\tNo Bluetooth Adapter Found. Please run 'hciconfig hci0 up' If Adapter is present but not working\n"
+    print("Error:\n\tNo Bluetooth Adapter Found. Please run 'hciconfig hci0 up' If Adapter is present but not working\n")
     sys.exit(1)
 
 def no_db():
 
-    print "Error:\n\tDatabase not found or Corrupt. Please run 'haraldscan.py -b'\n"
+    print("Error:\n\tDatabase not found or Corrupt. Please run 'haraldscan.py -b'\n")
     sys.exit(1)
 
 if __name__ == "__main__":

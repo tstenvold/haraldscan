@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 # haraldcli.py
 # July 2009
 # Terence Stenvold <tstenvold@gmail.com>
@@ -20,12 +19,12 @@
 #You should have received a copy of the GNU General Public License
 #Version 3 along with Haraldscan.  If not, see <http://www.gnu.org/licenses/>.
 
-import haraldsql
-import haraldargs
+import haraldmodules.haraldsql
+import haraldmodules.haraldargs
 import time,sys,os
 
 def move(new_x, new_y):
-    print '\033[' + str(new_x) + ';' + str(new_y) + 'H'
+    print(('\033[' + str(new_x) + ';' + str(new_y) + 'H'))
 
 def right(count):
 
@@ -33,16 +32,16 @@ def right(count):
 	    sys.stdout.write("\x1b[C")
 
 def moveUp(lines):
-  print '\033[' + str(lines) + 'A'
+  print(('\033[' + str(lines) + 'A'))
 
 def moveDown(lines):
-  print '\033[' + str(lines) + 'B'
+  print(('\033[' + str(lines) + 'B'))
 
 def clear():
-  print '\033[2J'
+  print('\033[2J')
 
 def clrtoeol():
-  print '\033[2K'
+  print('\033[2K')
 
 def savecursor():
 	sys.stdout.write("\x1b7")
@@ -52,13 +51,14 @@ def restorecursor():
 
 def columns(col1, col2, col3, col4):
 
-    print col1[:17],
+    print(( col1[:17]))
     right(20-len(col1[:17]))
-    print col2[:13],
+    print(( col2[:13]))
     right(15-len(col2[:15]))
-    print col3[:18],
+    print(( col3[:18]))
     right(20-len(col3[:20]))
-    print col4[:25]
+    print((col4[:25]))
+    print()
 
 def dev_per_interval(num_devices, time_start, time_interval):
 
@@ -88,22 +88,22 @@ def redraw_screen(scanner, cursor):
     dev_interval = dev_per_interval(scanner.num_entry, scanner.time_start, scanner.time_interval)
     title_bar(scanner.num_entry, dev_interval,scanner.time_interval)
     write_screen(cursor)
-    
+
 
 #Displays the title of Harald Scan
 def title_bar(num_devices, dev_interval, time_interval):
-    print " "*35,
-    print '\033[34;1m' + "Harald Scan" + '\033[0m'
-    print "#"*80
-    print "Press Ctrl-C to Quit",
+    print(( " "*35))
+    print(( '\033[34;1m' + "Harald Scan" + '\033[0m' + "\n"))
+    print(( "#"*80 + "\n"))
+    print( "Press Ctrl-C to Quit")
     mid1 = "%0.2f MAC(s) / %d mins" % (dev_interval, time_interval)
     mid2 = "%d device(s) found" % num_devices
-    print " "*(30 - len(mid1)),
-    print mid1,
-    print " "*(26 - len(mid2)),
-    print mid2
-    print "#"*80
-    print ""
+    print(( " "*(30 - len(mid1))))
+    print(mid1)
+    print(( " "*(26 - len(mid2))))
+    print((mid2 + "\n"))
+    print(("#"*80 + "\n"))
+    print()
     columns("MAC","Name","Class","Vendor")
 
 def write_screen(cursor):

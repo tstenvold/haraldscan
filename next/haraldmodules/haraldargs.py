@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 # haraldargs.py
 # July 2009
 # Terence Stenvold <tstenvold@gmail.com>
@@ -20,9 +19,9 @@
 #You should have received a copy of the GNU General Public License
 #Version 3 along with Haraldscan.  If not, see <http://www.gnu.org/licenses/>.
 
-import haraldusage
-import haraldsql
-import haraldupdate
+import haraldmodules.haraldusage
+import haraldmodules.haraldsql
+import haraldmodules.haraldupdate
 import sys, time
 from optparse import OptionParser
 

@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 # haraldscan.py
 # June 2009
 # Terence Stenvold <tstenvold@gmail.com>
