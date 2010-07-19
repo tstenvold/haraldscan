@@ -77,35 +77,24 @@ def unkown_mac(addr, name, devclass):
     new_services = service_discover(addr)
 
     fp = open(addr + ".xml" , "wb+")
-    fp.write("<?xml version=\"1.0\"?>\n")
 
+    fp.write("<?xml version=\"1.0\"?>\n")
+    fp.write("<device>\n")
+    fp.write("\t<name>%s</name>\n" % name)
+    fp.write("\t<address>%s</address>\n" % addr[0:8])
+    fp.write("\t<class>%s</class>\n" % devclass)
 
     if "No Services" in new_services:
-        fp.write("<device>\n")
-        fp.write("\t<name>%s</name>\n" % name)
-        fp.write("\t<address>%s</address>\n" % addr[0:8])
-        fp.write("\t<class>%s</class>\n" % devclass)
-        fp.write("\t<services>" + new_services + "</services>\n")
+        fp.write("\t<services>" + new_services)
         fp.write("</device>")
     else:
-        fp.write("\t<device>\n")
-        fp.write("\t<name>%s</name>\n" % name)
-        fp.write("\t<address>%s</address>\n" % addr[0:8])
-        fp.write("\t<class>%s</class>\n" % devclass)
         fp.write("\t<services>\n")
         for svc in new_services: 		#writes each new service to the file
-            fp.write("\t\t<servicename>%s</servicename>\n" % svc["name"])
-            fp.write("\t\t<host>%s</host>\n" % svc["host"])
-            fp.write("\t\t<description>%s</description>\n" % svc["description"])
-            fp.write("\t\t<provider>%s</provider>\n" % svc["provider"])
-            fp.write("\t\t<protocol>%s</protocol>\n" % svc["protocol"])
-            fp.write("\t\t<channel>%s</channel>\n" % svc["port"])
-            fp.write("\t\t<svcclasses>%s</svcclasses>\n"% svc["service-classes"])
-            fp.write("\t\t<profile>%s</profile>\n"% svc["profiles"])
-            fp.write("\t\t<svcid>%s</svcid>\n"% svc["service-id"])
-        fp.write("\t</services>\n")
-        fp.write("</device>")
+            fp.write("\t\t<servicename>%s</servicename>\n" % svc[2])
+            fp.write("\t\t<svcid>%s</svcid>\n"% svc[1])
 
+    fp.write("\t</services>\n")
+    fp.write("</device>")
     fp.close() #closes file
 
 if __name__ == "__main__":
