@@ -84,7 +84,6 @@ def unkown_mac(addr, name, devclass):
 
     if "No Services" in new_services:
         fp.write("\t<services>" + new_services)
-        fp.write("</device>")
     else:
         fp.write("\t<services>\n")
         for svc in new_services: 		#writes each new service to the file
